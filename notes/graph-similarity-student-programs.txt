@@ -1,0 +1,10 @@
+AssignSim (p551)
+	Compares similarity between two programs, one instructor (with correct answer) and one student (unknown answer)
+	Used to define "how correct" are student programs
+	Score of similarity represented by comparison of subgraphs reachable from both graphs
+
+
+
+
+
+

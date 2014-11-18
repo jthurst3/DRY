@@ -1,0 +1,35 @@
+Abstract (p1)
+	More and more people are taking up computer programming courses, so instances of plagiarism will increase
+
+Techniques students use for plagiarism (p2)
+	Lexical changes (language independent)
+		reworded comments
+		formatting
+		identifier names
+		line number changes
+	Structural changes (language dependent)
+		loop replacement (e.g. for -> while)
+		Nested if -> case
+		change order of statements if it does not affect outcome
+		procedure <-> function calls
+		calls to procedure replaced by body of that procedure
+		operand ordering (e.g. x < y <=> y >= x)
+
+Why do programming students plagiarize? II.B
+	most students that do do not fully understand how to program
+	modifications usually obvious
+
+Detection of plagiarism reduces to detecting program similarity:
+	calculate + compare attribute counts
+	compare structure of programs
+
+Incremental comparison method (p3)
+	Programs compared in original form
+	Programs compared with max amount of whitespace removed
+	Programs compared with all comments removed
+	Programs compared with all comments and max whitespace removed
+	Programs translated to a file of tokens (names, operators, loop statements, ...)
+
+Neural network output (p3-4)
+	submitted programs represented as a graph, with edges connecting two programs if they are sufficiently similar
+		--> extend to methods within a program

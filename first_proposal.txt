@@ -1,0 +1,8 @@
+First Proposal for Honors Project
+J. Hassler Thurston
+CSC200H Fall 2014: Chen Ding
+3 October 2014
+
+
+
+	I would like to extend the concept and implementation of Charlie Lehner and Dan Hassin's Javascript code generation project (https://github.com/RocHack/jschain) from last semester to compute a measure of how much a programmer follows the "DRY" principle. DRY, or "Don't repeat yourself", is an ideal in the programming world that recommends programmers avoid duplicating code or structures of code in order to make programming more efficient and readable. Given a parse tree for a program, then, we would like to develop a function that acts on the domain of parse trees for a programming language and outputs a real number between 0 and 1 specifying how much the program follows DRY. This could be done by defining a similarity measure between two subtrees, and then considering all possible pairs of subtrees that are disjoint. I hope that by designing and implementing this, not only can we come up with a novel method for evaluating DRY, but we can also advance this concept among amateur programmers to make their code more efficient and readable.

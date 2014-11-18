@@ -1,0 +1,10 @@
+Abstract (p58)
+	Generalization of Hamming distance and longest common subsequences between strings to one between languages
+	Similarity metrics between regular languages are computable
+	Self-similarity of regular languages by studying "amplitude" of an automaton => how much execution of automaton fluctuates
+	similarity between two real-world programs using Lempel-Ziv compression on runs at assembly level
+
+Introduction (p58)
+	Similarity between programs difficult to measure
+	No agreement in research community about what is a good similarity metric (from Walstein et. al. 2007 [32])
+	

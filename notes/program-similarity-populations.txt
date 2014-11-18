@@ -1,0 +1,28 @@
+Origins of program similairty (p1)
+	coincidence
+	"premeditated plagiarism"
+	cooperation/collaboration between authors
+
+Techniques used to disguise similarity (p2)
+	Changing comments/formatting
+	Changing identifiers
+	Changing order of operations
+	Changing data types (e.g. integer -> real)
+	Equivalent expressions
+	Adding redundant statements/variables
+	Changing order of independent statements
+	Changing structure of iteration statements
+	Changing structure of selection statements (if/else vs case)
+	Replacing procedure call by procedure body
+	Introducing non-structured statements
+	Combinations of the above
+
+Attribute count method (p4)
+	Count total number of unique operators and unique operands
+	Count total number of assignment statements, lines of code, variables, keywords (Berghel and Sallach [1])
+	Measure similarity of programs based on these counts
+
+Structural methods are harder (p5)
+	Code optimization to extract details of structure (Robinson and Soffa [14])
+
+Hard to balance selectivity and recall (p5 sec 5.3)
