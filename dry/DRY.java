@@ -11,6 +11,8 @@
  * Fall 2014
 */
 
+// package dry;
+
 import japa.parser.ast.CompilationUnit;
 import japa.parser.JavaParser;
 import japa.parser.ast.body.TypeDeclaration;
@@ -22,26 +24,42 @@ import japa.parser.ast.visitor.VoidVisitorAdapter;
 import java.io.FileInputStream;
 import java.util.List;
 
+// import dry.visitors.*;
+
+
+
 
 public class DRY {
 
-
+    static boolean comments = false;
 	 public static void main(String[] args) throws Exception {
-        // creates an input stream for the file to be parsed
-        String file = "../japa/src/japa/parser/ASTParser.java";
-        FileInputStream in = new FileInputStream(file);
-
-        CompilationUnit cu;
-        try {
-            // parse the file
-            cu = JavaParser.parse(in);
-        } finally {
-            in.close();
+        // check for print statements
+        if(args.length >= 1 && args[0].equals("-c")) {
+            comments = true;
         }
 
-        // run the DRY heuristic
-        Double dryScore = new DRYVisitor().visit(cu, null);
-        System.out.println("DRY Score for " + file + " is: " + dryScore);
+        // creates an input stream for the file to be parsed
+        String prefix = "samples/";
+        String extension = ".java";
+        String[] files = new String[] {"HelloWorld", "HelloWorldWet", "DoubleFor", "DoubleForWet", "Factorial", "FactorialWet", "DivideByZero"};
+
+        for (int f = 0; f < files.length; f++) {
+            FileInputStream in = new FileInputStream(prefix + files[f] + extension);
+
+            CompilationUnit cu;
+            try {
+                // parse the file
+                cu = JavaParser.parse(in);
+            } finally {
+                in.close();
+            }
+
+            // run the DRY heuristic
+            Double dryScore = new Iteration1Visitor(comments).visit(cu, null);
+            System.out.println("DRY Score for " + files[f] + " is: " + dryScore);
+            
+        }
+
 
         // changeMethods(cu);
         // System.out.println(cu.getData());

@@ -1,4 +1,4 @@
-/** DRYVisitor.java
+/** ZeroVisitor.java
  * Modified from Julio Vilmar Gesser's GenericVisitorAdapter
  * to compute dryness scores of nodes
  * 
@@ -9,6 +9,8 @@
  * CSC200H Research Project
  * Fall 2014
 */
+
+// package dry.visitors;
 
 import japa.parser.ast.BlockComment;
 import japa.parser.ast.CompilationUnit;
@@ -100,7 +102,7 @@ import japa.parser.ast.visitor.GenericVisitor;
 /**
  * @author J. Hassler Thurston
  */
-public class DRYVisitor<A> implements GenericVisitor<Double, A> {
+public class ZeroVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(AnnotationDeclaration n, A arg) {
         if (n.getJavaDoc() != null) {
