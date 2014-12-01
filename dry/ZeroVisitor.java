@@ -104,6 +104,17 @@ import japa.parser.ast.visitor.GenericVisitor;
  */
 public class ZeroVisitor<A> implements GenericVisitor<Double, A> {
 
+    boolean comments = false;
+    public ZeroVisitor(boolean comments) {
+        this.comments = comments;
+    }
+    public ZeroVisitor() {
+        this.comments = false;
+    }
+    public void setComments(boolean val) {
+        this.comments = val;
+    }
+
     public Double visit(AnnotationDeclaration n, A arg) {
         if (n.getJavaDoc() != null) {
             n.getJavaDoc().accept(this, arg);

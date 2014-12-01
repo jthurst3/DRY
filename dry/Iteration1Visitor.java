@@ -110,6 +110,12 @@ public class Iteration1Visitor<A> implements GenericVisitor<Double, A> {
     public Iteration1Visitor(boolean comments) {
         this.comments = comments;
     }
+    public Iteration1Visitor() {
+        this.comments = false;
+    }
+    public void setComments(boolean val) {
+        this.comments = val;
+    }
 
     public Double visit(AnnotationDeclaration n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "AnnotationDeclaration");
