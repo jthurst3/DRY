@@ -1,0 +1,38 @@
+\begin{thebibliography}{1}
+
+\bibitem{Modularity1979}
+A.~L. Baker and S.~H. Zweben.
+\newblock The use of software science in evaluating modularity concepts.
+\newblock {\em IEEE Transactions on Software Engineering}, SE-5(2):110--120,
+  1979.
+\newblock
+  \url{http://openurl.lib.rochester.edu/?ctx_ver=Z39.88-2004&ctx_enc=info%3Aofi%2Fenc%3AUTF-8&rfr_id=info:sid/summon.serialssolutions.com&rft_val_fmt=info:ofi/fmt:kev:mtx:journal&rft.genre=article&rft.atitle=The+Use+of+Software+Science+in+Evaluating+Modularity+Concepts&rft.jtitle=IEEE+Transactions+on+Software+Engineering&rft.au=Baker%2C+A.L&rft.au=Zweben%2C+S.H&rft.date=1979&rft.pub=IEEE&rft.issn=0098-5589&rft.volume=SE-5&rft.issue=2&rft.spage=110&rft.epage=120&rft_id=info:doi/10.1109%2FTSE.1979.234167&rft.externalDocID=32&paramdict=en-US}.
+
+\bibitem{NoSilverBullet}
+Brooks.
+\newblock No silver bullet essence and accidents of software engineering.
+\newblock {\em Computer}, 20(4):10--19, 1987.
+\newblock
+  \url{http://openurl.lib.rochester.edu/?ctx_ver=Z39.88-2004&ctx_enc=info%3Aofi%2Fenc%3AUTF-8&rfr_id=info:sid/summon.serialssolutions.com&rft_val_fmt=info:ofi/fmt:kev:mtx:journal&rft.genre=article&rft.atitle=No+Silver+Bullet+Essence+and+Accidents+of+Software+Engineering&rft.jtitle=Computer&rft.au=Brooks&rft.date=1987&rft.pub=IEEE&rft.issn=0018-9162&rft.eissn=1558-0814&rft.volume=20&rft.issue=4&rft.spage=10&rft.epage=19&rft_id=info:doi/10.1109%2FMC.1987.1663532&rft.externalDocID=2&paramdict=en-US}.
+
+\bibitem{PlagiarismProgrammingAssignments}
+M.~Joy, M.~Joy, and M.~Luck.
+\newblock Plagiarism in programming assignments.
+\newblock {\em IEEE Transactions on Education}, 42(2):129--133, 1999.
+\newblock \url{http://ieeexplore.ieee.org/xpls/abs\_all.jsp?arnumber=762946}.
+
+\bibitem{LogicalModularity}
+D.~Ratiu, R.~Marinescu, and J.~Jurjens.
+\newblock The logical modularity of programs.
+\newblock pages 123--127, 2009.
+\newblock
+  \url{http://openurl.lib.rochester.edu/?ctx_ver=Z39.88-2004&ctx_enc=info%3Aofi%2Fenc%3AUTF-8&rfr_id=info:sid/summon.serialssolutions.com&rft_val_fmt=info:ofi/fmt:kev:mtx:book&rft.genre=proceeding&rft.title=2009+16th+Working+Conference+on+Reverse+Engineering&rft.atitle=The+Logical+Modularity+of+Programs&rft.au=Ratiu%2C+D&rft.au=Marinescu%2C+R&rft.au=Jurjens%2C+J&rft.date=2009-01-01&rft.isbn=0769538673&rft.issn=1095-1350&rft.spage=123&rft.epage=127&rft_id=info:doi/10.1109%2FWCRE.2009.29&rft.externalDocID=5328618&paramdict=en-US}.
+
+\bibitem{ProgramSimilarityPopulations}
+G.~WHALE.
+\newblock Identification of program similarity in large populations.
+\newblock {\em COMPUTER JOURNAL}, 33(2):140--146, 1990.
+\newblock
+  \url{http://gateway.webofknowledge.com/gateway/Gateway.cgi?GWVersion=2\&SrcAuth=SerialsSolutions\&SrcApp=Summon\&KeyUT=A1990CZ98300007\&DestLinkType=FullRecord\&DestApp=WOS}.
+
+\end{thebibliography}
