@@ -1,7 +1,15 @@
 /**
- * Iteration1Visitor.java
+ * AllPairsVisitor.java
  * Modified from Julio Vilmar Gesser's GenericVisitorAdapter
  * to compute dryness scores of nodes
+ *
+ * For each type of Java expression, we make a list of statements
+ * of that expression type that's found in the input file.
+ * We then loop through each type of statement and compare the
+ * expressions pairwise for equality. If there are pairs of equal
+ * statements, the dryness score gets penalized.
+ *
+ * TODO: for each visit, add the appropriate thing to the appropriate array list.
  * 
  * @author J. Hassler Thurston
  * Modified from javaparser by Julio Vilmar Gesser
@@ -101,22 +109,299 @@ import japa.parser.ast.type.WildcardType;
 import japa.parser.ast.visitor.GenericVisitor;
 
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * @author J. Hassler Thurston
  */
-public class Iteration1Visitor<A> implements GenericVisitor<Double, A> {
+public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
+
+    // lists of expressions are stored here
+    static ArrayList<AnnotationDeclaration> annotationDeclarations;
+    static ArrayList<AnnotationMemberDeclaration> annotationMemberDeclarations;
+    static ArrayList<ArrayAccessExpr> arrayAccessExprs;
+    static ArrayList<ArrayCreationExpr> arrayCreationExprs;
+    static ArrayList<ArrayInitializerExpr> arrayInitializerExprs;
+    static ArrayList<AssertStmt> assertStmts;
+    static ArrayList<AssignExpr> assignExprs;
+    static ArrayList<BinaryExpr> binaryExprs;
+    static ArrayList<BlockStmt> blockStmts;
+    static ArrayList<BooleanLiteralExpr> booleanLiteralExprs;
+    static ArrayList<BreakStmt> breakStmts;
+    static ArrayList<CastExpr> castExprs;
+    static ArrayList<CatchClause> catchClauses;
+    static ArrayList<CharLiteralExpr> charLiteralExprs;
+    static ArrayList<ClassExpr> classExprs;
+    static ArrayList<ClassOrInterfaceDeclaration> classOrInterfaceDeclarations;
+    static ArrayList<ClassOrInterfaceType> classOrInterfaceTypes;
+    static ArrayList<CompilationUnit> compilationUnits;
+    static ArrayList<ConditionalExpr> conditionalExprs;
+    static ArrayList<ConstructorDeclaration> constructorDeclarations;
+    static ArrayList<ContinueStmt> continueStmts;
+    static ArrayList<DoStmt> doStmts;
+    static ArrayList<DoubleLiteralExpr> doubleLiteralExprs;
+    static ArrayList<EmptyMemberDeclaration> emptyMemberDeclarations;
+    static ArrayList<EmptyStmt> emptyStmts;
+    static ArrayList<EmptyTypeDeclaration> emptyTypeDeclarations;
+    static ArrayList<EnclosedExpr> enclosedExprs;
+    static ArrayList<EnumConstantDeclaration> enumConstantDeclarations;
+    static ArrayList<EnumDeclaration> enumDeclarations;
+    static ArrayList<ExplicitConstructorInvocationStmt> explicitConstructorInvocationStmts;
+    static ArrayList<ExpressionStmt> expressionStmts;
+    static ArrayList<FieldAccessExpr> fieldAccessExprs;
+    static ArrayList<FieldDeclaration> fieldDeclarations;
+    static ArrayList<ForeachStmt> foreachStmts;
+    static ArrayList<ForStmt> forStmts;
+    static ArrayList<IfStmt> ifStmts;
+    static ArrayList<ImportDeclaration> importDeclarations;
+    static ArrayList<InitializerDeclaration> initializerDeclarations;
+    static ArrayList<InstanceOfExpr> instanceOfExprs;
+    static ArrayList<IntegerLiteralExpr> integerLiteralExprs;
+    static ArrayList<IntegerLiteralMinValueExpr> integerLiteralMinValueExprs;
+    static ArrayList<JavadocComment> javadocComments;
+    static ArrayList<LabeledStmt> labeledStmts;
+    static ArrayList<LongLiteralExpr> longLiteralExprs;
+    static ArrayList<LongLiteralMinValueExpr> longLiteralMinValueExprs;
+    static ArrayList<MarkerAnnotationExpr> markerAnnotationExprs;
+    static ArrayList<MemberValuePair> memberValuePairs;
+    static ArrayList<MethodCallExpr> methodCallExprs;
+    static ArrayList<MethodDeclaration> methodDeclarations;
+    static ArrayList<NameExpr> nameExprs;
+    static ArrayList<NormalAnnotationExpr> normalAnnotationExprs;
+    static ArrayList<NullLiteralExpr> nullLiteralExprs;
+    static ArrayList<ObjectCreationExpr> objectCreationExprs;
+    static ArrayList<PackageDeclaration> packageDeclarations;
+    static ArrayList<Parameter> parameters;
+    static ArrayList<PrimitiveType> primitiveTypes;
+    static ArrayList<QualifiedNameExpr> qualifiedNameExprs;
+    static ArrayList<ReferenceType> referenceTypes;
+    static ArrayList<ReturnStmt> returnStmts;
+    static ArrayList<SingleMemberAnnotationExpr> singleMemberAnnotationExprs;
+    static ArrayList<StringLiteralExpr> stringLiteralExprs;
+    static ArrayList<SuperExpr> superExprs;
+    static ArrayList<SwitchEntryStmt> switchEntryStmts;
+    static ArrayList<SwitchStmt> switchStmts;
+    static ArrayList<SynchronizedStmt> synchronizedStmts;
+    static ArrayList<ThisExpr> thisExprs;
+    static ArrayList<ThrowStmt> throwStmts;
+    static ArrayList<TryStmt> tryStmts;
+    static ArrayList<TypeDeclarationStmt> typeDeclarationStmts;
+    static ArrayList<TypeParameter> typeParameters;
+    static ArrayList<UnaryExpr> unaryExprs;
+    static ArrayList<VariableDeclarationExpr> variableDeclarationExprs;
+    static ArrayList<VariableDeclarator> variableDeclarators;
+    static ArrayList<VariableDeclaratorId> variableDeclaratorIds;
+    static ArrayList<VoidType> voidTypes;
+    static ArrayList<WhileStmt> whileStmts;
+    static ArrayList<WildcardType> wildcardTypes;
+    static ArrayList<BlockComment> blockComments;
+    static ArrayList<LineComment> lineComments;
 
     boolean comments = false;
-    public Iteration1Visitor(boolean comments) {
+    public AllPairsVisitor(boolean comments) {
         this.comments = comments;
+        // initialize pairwise variables
+        annotationDeclarations = new ArrayList<AnnotationDeclaration>();
+        annotationMemberDeclarations = new ArrayList<AnnotationMemberDeclaration>();
+        arrayAccessExprs = new ArrayList<ArrayAccessExpr>();
+        arrayCreationExprs = new ArrayList<ArrayCreationExpr>();
+        arrayInitializerExprs = new ArrayList<ArrayInitializerExpr>();
+        assertStmts = new ArrayList<AssertStmt>();
+        assignExprs = new ArrayList<AssignExpr>();
+        binaryExprs = new ArrayList<BinaryExpr>();
+        blockStmts = new ArrayList<BlockStmt>();
+        booleanLiteralExprs = new ArrayList<BooleanLiteralExpr>();
+        breakStmts = new ArrayList<BreakStmt>();
+        castExprs = new ArrayList<CastExpr>();
+        catchClauses = new ArrayList<CatchClause>();
+        charLiteralExprs = new ArrayList<CharLiteralExpr>();
+        classExprs = new ArrayList<ClassExpr>();
+        classOrInterfaceDeclarations = new ArrayList<ClassOrInterfaceDeclaration>();
+        classOrInterfaceTypes = new ArrayList<ClassOrInterfaceType>();
+        compilationUnits = new ArrayList<CompilationUnit>();
+        conditionalExprs = new ArrayList<ConditionalExpr>();
+        constructorDeclarations = new ArrayList<ConstructorDeclaration>();
+        continueStmts = new ArrayList<ContinueStmt>();
+        doStmts = new ArrayList<DoStmt>();
+        doubleLiteralExprs = new ArrayList<DoubleLiteralExpr>();
+        emptyMemberDeclarations = new ArrayList<EmptyMemberDeclaration>();
+        emptyStmts = new ArrayList<EmptyStmt>();
+        emptyTypeDeclarations = new ArrayList<EmptyTypeDeclaration>();
+        enclosedExprs = new ArrayList<EnclosedExpr>();
+        enumConstantDeclarations = new ArrayList<EnumConstantDeclaration>();
+        enumDeclarations = new ArrayList<EnumDeclaration>();
+        explicitConstructorInvocationStmts = new ArrayList<ExplicitConstructorInvocationStmt>();
+        expressionStmts = new ArrayList<ExpressionStmt>();
+        fieldAccessExprs = new ArrayList<FieldAccessExpr>();
+        fieldDeclarations = new ArrayList<FieldDeclaration>();
+        foreachStmts = new ArrayList<ForeachStmt>();
+        forStmts = new ArrayList<ForStmt>();
+        ifStmts = new ArrayList<IfStmt>();
+        importDeclarations = new ArrayList<ImportDeclaration>();
+        initializerDeclarations = new ArrayList<InitializerDeclaration>();
+        instanceOfExprs = new ArrayList<InstanceOfExpr>();
+        integerLiteralExprs = new ArrayList<IntegerLiteralExpr>();
+        integerLiteralMinValueExprs = new ArrayList<IntegerLiteralMinValueExpr>();
+        javadocComments = new ArrayList<JavadocComment>();
+        labeledStmts = new ArrayList<LabeledStmt>();
+        longLiteralExprs = new ArrayList<LongLiteralExpr>();
+        longLiteralMinValueExprs = new ArrayList<LongLiteralMinValueExpr>();
+        markerAnnotationExprs = new ArrayList<MarkerAnnotationExpr>();
+        memberValuePairs = new ArrayList<MemberValuePair>();
+        methodCallExprs = new ArrayList<MethodCallExpr>();
+        methodDeclarations = new ArrayList<MethodDeclaration>();
+        nameExprs = new ArrayList<NameExpr>();
+        normalAnnotationExprs = new ArrayList<NormalAnnotationExpr>();
+        nullLiteralExprs = new ArrayList<NullLiteralExpr>();
+        objectCreationExprs = new ArrayList<ObjectCreationExpr>();
+        packageDeclarations = new ArrayList<PackageDeclaration>();
+        parameters = new ArrayList<Parameter>();
+        primitiveTypes = new ArrayList<PrimitiveType>();
+        qualifiedNameExprs = new ArrayList<QualifiedNameExpr>();
+        referenceTypes = new ArrayList<ReferenceType>();
+        returnStmts = new ArrayList<ReturnStmt>();
+        singleMemberAnnotationExprs = new ArrayList<SingleMemberAnnotationExpr>();
+        stringLiteralExprs = new ArrayList<StringLiteralExpr>();
+        superExprs = new ArrayList<SuperExpr>();
+        switchEntryStmts = new ArrayList<SwitchEntryStmt>();
+        switchStmts = new ArrayList<SwitchStmt>();
+        synchronizedStmts = new ArrayList<SynchronizedStmt>();
+        thisExprs = new ArrayList<ThisExpr>();
+        throwStmts = new ArrayList<ThrowStmt>();
+        tryStmts = new ArrayList<TryStmt>();
+        typeDeclarationStmts = new ArrayList<TypeDeclarationStmt>();
+        typeParameters = new ArrayList<TypeParameter>();
+        unaryExprs = new ArrayList<UnaryExpr>();
+        variableDeclarationExprs = new ArrayList<VariableDeclarationExpr>();
+        variableDeclarators = new ArrayList<VariableDeclarator>();
+        variableDeclaratorIds = new ArrayList<VariableDeclaratorId>();
+        voidTypes = new ArrayList<VoidType>();
+        whileStmts = new ArrayList<WhileStmt>();
+        wildcardTypes = new ArrayList<WildcardType>();
+        blockComments = new ArrayList<BlockComment>();
+        lineComments = new ArrayList<LineComment>();
     }
-    public Iteration1Visitor() {
-        this.comments = false;
+    public AllPairsVisitor() {
+        this(false);
     }
     public void setComments(boolean val) {
         this.comments = val;
     }
+
+
+    // computes the pairwise dryness score from the ArrayList variables
+    public Double computePairwiseDrynessScore() {
+        Double result = 0D;
+        // go through each array list, and compute pairwise equalities
+        ArrayList[] arrayLists = new ArrayList[] {
+            annotationDeclarations,
+            annotationMemberDeclarations,
+            arrayAccessExprs,
+            arrayCreationExprs,
+            arrayInitializerExprs,
+            assertStmts,
+            assignExprs,
+            binaryExprs,
+            blockStmts,
+            booleanLiteralExprs,
+            breakStmts,
+            castExprs,
+            catchClauses,
+            charLiteralExprs,
+            classExprs,
+            classOrInterfaceDeclarations,
+            classOrInterfaceTypes,
+            compilationUnits,
+            conditionalExprs,
+            constructorDeclarations,
+            continueStmts,
+            doStmts,
+            doubleLiteralExprs,
+            emptyMemberDeclarations,
+            emptyStmts,
+            emptyTypeDeclarations,
+            enclosedExprs,
+            enumConstantDeclarations,
+            enumDeclarations,
+            explicitConstructorInvocationStmts,
+            expressionStmts,
+            fieldAccessExprs,
+            fieldDeclarations,
+            foreachStmts,
+            forStmts,
+            ifStmts,
+            importDeclarations,
+            initializerDeclarations,
+            instanceOfExprs,
+            integerLiteralExprs,
+            integerLiteralMinValueExprs,
+            javadocComments,
+            labeledStmts,
+            longLiteralExprs,
+            longLiteralMinValueExprs,
+            markerAnnotationExprs,
+            memberValuePairs,
+            methodCallExprs,
+            methodDeclarations,
+            nameExprs,
+            normalAnnotationExprs,
+            nullLiteralExprs,
+            objectCreationExprs,
+            packageDeclarations,
+            parameters,
+            primitiveTypes,
+            qualifiedNameExprs,
+            referenceTypes,
+            returnStmts,
+            singleMemberAnnotationExprs,
+            stringLiteralExprs,
+            superExprs,
+            switchEntryStmts,
+            switchStmts,
+            synchronizedStmts,
+            thisExprs,
+            throwStmts,
+            tryStmts,
+            typeDeclarationStmts,
+            typeParameters,
+            unaryExprs,
+            variableDeclarationExprs,
+            variableDeclarators,
+            variableDeclaratorIds,
+            voidTypes,
+            whileStmts,
+            wildcardTypes,
+            blockComments,
+            lineComments};
+        Double[] results = new Double[arrayLists.length];
+        for (int ls = 0; ls < arrayLists.length; ls++) {
+            // convert the list to an array
+            Expression[] stmts = new Expression[arrayLists[ls].size()];
+            arrayLists[ls].toArray(stmts);
+            // compare elements pairwise
+            Double equalityCounter = 0D;
+            int pairs = 0;
+            Double dryValues = 0D;
+            int i = 0;
+            if (stmts != null) {
+                for (int s1 = 0; s1 < stmts.length; s1++) {
+                    dryValues += stmts.get(s1).accept(this, null);
+                    i++;
+                    for (int s2 = 0; s2 < s1; s2++) {
+                        if (stmts.get(s1).equals(stmts.get(s2))) {
+                            equalityCounter = equalityCounter + 1;
+                        }
+                        pairs++;
+                    }
+                }
+            }
+            results[ls] = (average(new Double[] {divide(dryValues,i), divide(equalityCounter,pairs)}));
+        }
+        result = average(results);
+        return result;
+    }
+
+
 
     public Double visit(AnnotationDeclaration n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "AnnotationDeclaration");
@@ -359,8 +644,11 @@ public class Iteration1Visitor<A> implements GenericVisitor<Double, A> {
             }
             typesValue = divide(dryValues, i);
         }
-        if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (typesValue));
-        return typesValue; // stub
+
+        // note that this is the first call to visit, so we will call the compute function from here.
+        Double dryValue = computePairwiseDrynessScore();
+        if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (dryValue));
+        return dryValue; // stub
     }
 
     public Double visit(ConditionalExpr n, A arg) {

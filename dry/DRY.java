@@ -1,4 +1,5 @@
-/** DRY.java
+/**
+ * DRY.java
  * Computes the DRY score (a measure of how much
  * a programmer follows "don't repeat yourself")
  * of sample files using the DRYVisitor heuristics
