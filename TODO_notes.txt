@@ -17,3 +17,7 @@ TODO:
 	- write code for this metric
 	- write test cases (hand-coded at first)
 	- evaluate efficacy of this metric + report on it for this Wednesday
+
+All pairs:
+	- Create a visitor that goes through and gets lists of all different types of a program (e.g. all StatementLists)
+	- For each type, compare pairs using Edit Distance

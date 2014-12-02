@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d (TeX Live 2014/dev)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: report.aux
+The style file: plain.bst
+Database file #1: report.bib
+Warning--empty booktitle in LogicalModularity
+You've used 5 entries,
+            2118 wiz_defined-function locations,
+            538 strings with 6486 characters,
+and the built_in function-call counts, 1766 in all, are:
+= -- 177
+> -- 63
+< -- 1
++ -- 27
+- -- 20
+* -- 124
+:= -- 292
+add.period$ -- 20
+call.type$ -- 5
+change.case$ -- 25
+chr.to.int$ -- 0
+cite$ -- 6
+duplicate$ -- 66
+empty$ -- 146
+format.name$ -- 20
+if$ -- 378
+int.to.chr$ -- 0
+int.to.str$ -- 5
+missing$ -- 5
+newline$ -- 33
+num.names$ -- 10
+pop$ -- 16
+preamble$ -- 1
+purify$ -- 20
+quote$ -- 0
+skip$ -- 49
+stack$ -- 0
+substring$ -- 133
+swap$ -- 14
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 20
+warning$ -- 1
+while$ -- 16
+width$ -- 6
+write$ -- 66
+(There was 1 warning)

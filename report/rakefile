@@ -1,0 +1,27 @@
+target = "report"
+
+task :default => ["#{target}.pdf"]
+
+def compile(target)
+  sh "pdflatex #{target}.tex"
+  if %x[grep 'citation{' #{target}.aux] != "" and %x[grep 'bibdata{' #{target}.aux] != ""
+    sh "bibtex #{target}"
+    sh "pdflatex #{target}.tex"
+  end
+  sh "pdflatex #{target}.tex"
+end
+
+file "#{target}.pdf" => ["#{target}.tex"] do
+  compile(target)
+end
+
+task :force do
+  compile(target)
+end
+
+task :clean do
+  ["pdf", "aux", "bbl", "blg", "log"].each do |suf|
+    junk = "#{target}.#{suf}"
+    sh "\\rm #{junk}" if File.exists?(junk)
+  end
+end

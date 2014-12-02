@@ -1,0 +1,42 @@
+Honors Final Project
+
+Submission of the Final Project will consist of three parts:
+presentation, report, and code.  All deliverables (code, report, and
+slides) should be submitted via the class repository and are due
+at 11:59 pm on the due date.
+
+Report:
+
+Your report will be submitted twice.  The first version is due on
+December 3rd, and the final version on December 12th.  You'll receive
+specific feedback on the first version by December 5th, including
+changes required or suggested for the final version.
+
+Your report should be a research article written in Latex.  Required
+sections (at minimum) are: Introduction, Related Work, Design and
+Implementation, Results, and Conclusion.  There is no page length
+requirement.  The report must be readable, with correct spelling and
+grammar. It must be technically precise and complete. Define every
+concept that you use in the report. Describe the design and show how
+it meets the requirement(s).  Describe the testing setup completely,
+both for performance and failure testing.
+
+Presentation:
+
+Your presentations will be in 632 on December 15th or 16th, to be 
+decided at the next honors meeting.  Presentations should be 
+between 15 to 25 minutes long.  The rest of the class will be invited 
+but not required to attend.  We may also schedule a rehearsal at an 
+honors meeting on December 10th in Chen's office.
+
+Your presentations should provide enough background detail that your
+classmates, who have not seen development, can understand the topic.
+Your talks should motivate your research question, sketch project
+design and implementation, and discuss results.  Prior to the talks
+being given, please email a copy of your slides to Chen and Joe.
+
+Code:
+
+Code should be submitted via the class repo by December 12th (along
+with the final report).  As with all projects, make sure to provide a
+brief README describing usage.
