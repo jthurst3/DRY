@@ -5,9 +5,9 @@
 # Fall 2014
 
 # Available heuristics for testing
-heuristics="ZeroVisitor Iteration1Visitor "
+heuristics="ZeroHeuristic Iteration1Heuristic AllPairsNaiveHeuristic AllPairsWeightedHeuristic "
 # Available files for testing
-files="samples/*.java"
+files="samples/*.java AllPairsWeightedHeuristic.java AllPairsNaiveHeuristic.java DRY.java Iteration1Heuristic.java ZeroHeuristic.java "
 # File to put all the data
 resultfile="results.csv"
 
