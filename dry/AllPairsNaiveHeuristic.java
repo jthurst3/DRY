@@ -1,5 +1,5 @@
 /**
- * AllPairsVisitor.java
+ * AllPairsNaiveHeuristic.java
  * Modified from Julio Vilmar Gesser's GenericVisitorAdapter
  * to compute dryness scores of nodes
  *
@@ -8,8 +8,6 @@
  * We then loop through each type of statement and compare the
  * expressions pairwise for equality. If there are pairs of equal
  * statements, the dryness score gets penalized.
- *
- * TODO: for each visit, add the appropriate thing to the appropriate array list.
  * 
  * @author J. Hassler Thurston
  * Modified from javaparser by Julio Vilmar Gesser
@@ -21,6 +19,7 @@
 
 // package dry.visitors;
 
+import japa.parser.ast.Node;
 import japa.parser.ast.BlockComment;
 import japa.parser.ast.CompilationUnit;
 import japa.parser.ast.ImportDeclaration;
@@ -114,7 +113,7 @@ import java.util.ArrayList;
 /**
  * @author J. Hassler Thurston
  */
-public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
+public class AllPairsNaiveHeuristic<A> implements GenericVisitor<Double, A> {
 
     // lists of expressions are stored here
     static ArrayList<AnnotationDeclaration> annotationDeclarations;
@@ -198,7 +197,7 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
     static ArrayList<LineComment> lineComments;
 
     boolean comments = false;
-    public AllPairsVisitor(boolean comments) {
+    public AllPairsNaiveHeuristic(boolean comments) {
         this.comments = comments;
         // initialize pairwise variables
         annotationDeclarations = new ArrayList<AnnotationDeclaration>();
@@ -281,7 +280,7 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
         blockComments = new ArrayList<BlockComment>();
         lineComments = new ArrayList<LineComment>();
     }
-    public AllPairsVisitor() {
+    public AllPairsNaiveHeuristic() {
         this(false);
     }
     public void setComments(boolean val) {
@@ -376,26 +375,26 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
         Double[] results = new Double[arrayLists.length];
         for (int ls = 0; ls < arrayLists.length; ls++) {
             // convert the list to an array
-            Expression[] stmts = new Expression[arrayLists[ls].size()];
+            Node[] stmts = new Node[arrayLists[ls].size()];
             arrayLists[ls].toArray(stmts);
             // compare elements pairwise
             Double equalityCounter = 0D;
             int pairs = 0;
-            Double dryValues = 0D;
+            // Double dryValues = 0D;
             int i = 0;
             if (stmts != null) {
                 for (int s1 = 0; s1 < stmts.length; s1++) {
-                    dryValues += stmts.get(s1).accept(this, null);
+                    // dryValues += stmts[s1].accept(this, null);
                     i++;
                     for (int s2 = 0; s2 < s1; s2++) {
-                        if (stmts.get(s1).equals(stmts.get(s2))) {
+                        if (stmts[s1].equals(stmts[s2])) {
                             equalityCounter = equalityCounter + 1;
                         }
                         pairs++;
                     }
                 }
             }
-            results[ls] = (average(new Double[] {divide(dryValues,i), divide(equalityCounter,pairs)}));
+            results[ls] = divide(equalityCounter,pairs);
         }
         result = average(results);
         return result;
@@ -405,6 +404,7 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(AnnotationDeclaration n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "AnnotationDeclaration");
+        annotationDeclarations.add(n);
         if (n.getJavaDoc() != null) {
             n.getJavaDoc().accept(this, arg);
         }
@@ -424,6 +424,7 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(AnnotationMemberDeclaration n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "AnnotationMemberDeclaration");
+        annotationMemberDeclarations.add(n);
         if (n.getJavaDoc() != null) {
             n.getJavaDoc().accept(this, arg);
         }
@@ -442,6 +443,7 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(ArrayAccessExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ArrayAccessExpr");
+        arrayAccessExprs.add(n);
         n.getName().accept(this, arg);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getIndex().accept(this, arg)));
         return n.getIndex().accept(this, arg);
@@ -449,6 +451,7 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(ArrayCreationExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ArrayCreationExpr");
+        arrayCreationExprs.add(n);
         n.getType().accept(this, arg);
         if (n.getDimensions() != null) {
             for (Expression dim : n.getDimensions()) {
@@ -464,6 +467,7 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(ArrayInitializerExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ArrayInitializerExpr");
+        arrayInitializerExprs.add(n);
         Double dryValues = new Double(0);
         int i = 0;
         if (n.getValues() != null) {
@@ -478,6 +482,7 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(AssertStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "AssertStmt");
+        assertStmts.add(n);
         Double check, message = new Double(0);
         check = n.getCheck().accept(this, arg);
         if (n.getMessage() != null) {
@@ -489,6 +494,7 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(AssignExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "AssignExpr");
+        assignExprs.add(n);
         n.getTarget().accept(this, arg);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getValue().accept(this, arg)));
         return n.getValue().accept(this, arg);
@@ -496,6 +502,7 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(BinaryExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "BinaryExpr");
+        binaryExprs.add(n);
         Double left = n.getLeft().accept(this, arg);
         Double right = n.getRight().accept(this, arg);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (average(new Double[] {left, right})));
@@ -504,6 +511,7 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(BlockStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "BlockStmt");
+        blockStmts.add(n);
         Double equalityCounter = new Double(0);
         int pairs = 0;
         Double dryValues = new Double(0);
@@ -528,18 +536,21 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(BooleanLiteralExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "BooleanLiteralExpr");
+        booleanLiteralExprs.add(n);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(1)));
         return new Double(1); // stub
     }
 
     public Double visit(BreakStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "BreakStmt");
+        breakStmts.add(n);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(0)));
         return new Double(0);
     }
 
     public Double visit(CastExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "CastExpr");
+        castExprs.add(n);
         n.getType().accept(this, arg);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getExpr().accept(this, arg)));
         return n.getExpr().accept(this, arg);
@@ -547,6 +558,7 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(CatchClause n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "CatchClause");
+        catchClauses.add(n);
         Double except = n.getExcept().accept(this, arg);
         Double catchBlock = n.getCatchBlock().accept(this, arg);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (average(new Double[] {except, catchBlock})));
@@ -556,18 +568,21 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(CharLiteralExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "CharLiteralExpr");
+        charLiteralExprs.add(n);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(0)));
         return new Double(0);
     }
 
     public Double visit(ClassExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ClassExpr");
+        classExprs.add(n);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getType().accept(this, arg)));
         return n.getType().accept(this, arg);
     }
 
     public Double visit(ClassOrInterfaceDeclaration n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ClassOrInterfaceDeclaration");
+        classOrInterfaceDeclarations.add(n);
         if (n.getJavaDoc() != null) {
             n.getJavaDoc().accept(this, arg);
         }
@@ -608,6 +623,7 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(ClassOrInterfaceType n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ClassOrInterfaceType");
+        classOrInterfaceTypes.add(n);
         if (n.getScope() != null) {
             n.getScope().accept(this, arg);
         }
@@ -622,6 +638,7 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(CompilationUnit n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "CompilationUnit");
+        compilationUnits.add(n);
         Double packageValue = new Double(0), importsValue = new Double(0), typesValue = new Double(0);
         if (n.getPackage() != null) {
             packageValue = n.getPackage().accept(this, arg);
@@ -653,6 +670,7 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(ConditionalExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ConditionalExpr");
+        conditionalExprs.add(n);
         Double condition = n.getCondition().accept(this, arg);
         Double thenExpr = n.getThenExpr().accept(this, arg);
         Double elseExpr = n.getElseExpr().accept(this, arg);
@@ -662,6 +680,7 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(ConstructorDeclaration n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ConstructorDeclaration");
+        constructorDeclarations.add(n);
         if (n.getJavaDoc() != null) {
             n.getJavaDoc().accept(this, arg);
         }
@@ -691,12 +710,14 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(ContinueStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ContinueStmt");
+        continueStmts.add(n);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(0)));
         return new Double(0); // stub
     }
 
     public Double visit(DoStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "DoStmt");
+        doStmts.add(n);
         Double body = n.getBody().accept(this, arg);
         Double condition = n.getCondition().accept(this, arg);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (average(new Double[] {body, condition/2})));
@@ -705,12 +726,14 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(DoubleLiteralExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "DoubleLiteralExpr");
+        doubleLiteralExprs.add(n);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(0)));
         return new Double(0); // stub
     }
 
     public Double visit(EmptyMemberDeclaration n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "EmptyMemberDeclaration");
+        emptyMemberDeclarations.add(n);
         if (n.getJavaDoc() != null) {
             n.getJavaDoc().accept(this, arg);
         }
@@ -720,12 +743,14 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(EmptyStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "EmptyStmt");
+        emptyStmts.add(n);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(0)));
         return new Double(0); // stub
     }
 
     public Double visit(EmptyTypeDeclaration n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "EmptyTypeDeclaration");
+        emptyTypeDeclarations.add(n);
         if (n.getJavaDoc() != null) {
             n.getJavaDoc().accept(this, arg);
         }
@@ -735,12 +760,14 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(EnclosedExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "EnclosedExpr");
+        enclosedExprs.add(n);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getInner().accept(this, arg)));
         return n.getInner().accept(this, arg);
     }
 
     public Double visit(EnumConstantDeclaration n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "EnumConstantDeclaration");
+        enumConstantDeclarations.add(n);
         if (n.getJavaDoc() != null) {
             n.getJavaDoc().accept(this, arg);
         }
@@ -770,6 +797,7 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(EnumDeclaration n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "EnumDeclaration");
+        enumDeclarations.add(n);
         if (n.getJavaDoc() != null) {
             n.getJavaDoc().accept(this, arg);
         }
@@ -804,6 +832,7 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(ExplicitConstructorInvocationStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ExplicitConstructorInvocationStmt");
+        explicitConstructorInvocationStmts.add(n);
         Double thisExpr = new Double(0);
         if (!n.isThis()) {
             if (n.getExpr() != null) {
@@ -831,18 +860,21 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(ExpressionStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ExpressionStmt");
+        expressionStmts.add(n);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getExpression().accept(this, arg)));
         return n.getExpression().accept(this, arg);
     }
 
     public Double visit(FieldAccessExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "FieldAccessExpr");
+        fieldAccessExprs.add(n);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getScope().accept(this, arg)));
         return n.getScope().accept(this, arg);
     }
 
     public Double visit(FieldDeclaration n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "FieldDeclaration");
+        fieldDeclarations.add(n);
         if (n.getJavaDoc() != null) {
             n.getJavaDoc().accept(this, arg);
         }
@@ -864,6 +896,7 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(ForeachStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ForeachStmt");
+        foreachStmts.add(n);
         Double var = n.getVariable().accept(this, arg);
         Double iter = n.getIterable().accept(this, arg);
         Double body = n.getBody().accept(this, arg);
@@ -873,6 +906,7 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(ForStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ForStmt");
+        forStmts.add(n);
         Double init = new Double(0), comp = new Double(0), update = new Double(0), body = new Double(0);
         if (n.getInit() != null) {
             Double dryValues = new Double(0);
@@ -902,6 +936,7 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(IfStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "IfStmt");
+        ifStmts.add(n);
         Double cond = n.getCondition().accept(this, arg);
         Double thenStmt = n.getThenStmt().accept(this, arg);
         Double elseStmt = new Double(0);
@@ -914,12 +949,14 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(ImportDeclaration n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ImportDeclaration");
+        importDeclarations.add(n);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getName().accept(this, arg)));
         return n.getName().accept(this, arg);
     }
 
     public Double visit(InitializerDeclaration n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "InitializerDeclaration");
+        initializerDeclarations.add(n);
         if (n.getJavaDoc() != null) {
             n.getJavaDoc().accept(this, arg);
         }
@@ -929,6 +966,7 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(InstanceOfExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "InstanceOfExpr");
+        instanceOfExprs.add(n);
         Double expr = n.getExpr().accept(this, arg);
         n.getType().accept(this, arg);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (expr));
@@ -937,54 +975,63 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(IntegerLiteralExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "IntegerLiteralExpr");
+        integerLiteralExprs.add(n);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(1)));
         return new Double(1);
     }
 
     public Double visit(IntegerLiteralMinValueExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "IntegerLiteralMinValueExpr");
+        integerLiteralMinValueExprs.add(n);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(1)));
         return new Double(1);
     }
 
     public Double visit(JavadocComment n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "JavadocComment");
+        javadocComments.add(n);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(0)));
         return new Double(0);
     }
 
     public Double visit(LabeledStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "LabeledStmt");
+        labeledStmts.add(n);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getStmt().accept(this, arg)));
         return n.getStmt().accept(this, arg);
     }
 
     public Double visit(LongLiteralExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "LongLiteralExpr");
+        longLiteralExprs.add(n);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(1)));
         return new Double(1);
     }
 
     public Double visit(LongLiteralMinValueExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "LongLiteralMinValueExpr");
+        longLiteralMinValueExprs.add(n);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(1)));
         return new Double(1);
     }
 
     public Double visit(MarkerAnnotationExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "MarkerAnnotationExpr");
+        markerAnnotationExprs.add(n);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getName().accept(this, arg)));
         return n.getName().accept(this, arg);
     }
 
     public Double visit(MemberValuePair n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "MemberValuePair");
+        memberValuePairs.add(n);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getValue().accept(this, arg)));
         return n.getValue().accept(this, arg);
     }
 
     public Double visit(MethodCallExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "MethodCallExpr");
+        methodCallExprs.add(n);
         Double scope = new Double(0), tArgs = new Double(0), args = new Double(0);
         if (n.getScope() != null) {
             scope = n.getScope().accept(this, arg);
@@ -1013,6 +1060,7 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(MethodDeclaration n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "MethodDeclaration");
+        methodDeclarations.add(n);
         if (n.getJavaDoc() != null) {
             n.getJavaDoc().accept(this, arg);
         }
@@ -1047,12 +1095,14 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(NameExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "NameExpr");
+        nameExprs.add(n);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(0)));
         return new Double(0); // stub
     }
 
     public Double visit(NormalAnnotationExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "NormalAnnotationExpr");
+        normalAnnotationExprs.add(n);
         n.getName().accept(this, arg);
         if (n.getPairs() != null) {
             Double dryValues = new Double(0);
@@ -1069,12 +1119,14 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(NullLiteralExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "NullLiteralExpr");
+        nullLiteralExprs.add(n);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(0)));
         return new Double(0);
     }
 
     public Double visit(ObjectCreationExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ObjectCreationExpr");
+        objectCreationExprs.add(n);
         Double scope = new Double(0), tArgs = new Double(0), type = new Double(0), args = new Double(0), aClassBody = new Double(0);
         if (n.getScope() != null) {
             n.getScope().accept(this, arg);
@@ -1109,6 +1161,7 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(PackageDeclaration n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "PackageDeclaration");
+        packageDeclarations.add(n);
         if (n.getAnnotations() != null) {
             for (AnnotationExpr a : n.getAnnotations()) {
                 a.accept(this, arg);
@@ -1120,6 +1173,7 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(Parameter n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "Parameter");
+        parameters.add(n);
         if (n.getAnnotations() != null) {
             for (AnnotationExpr a : n.getAnnotations()) {
                 a.accept(this, arg);
@@ -1133,24 +1187,28 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(PrimitiveType n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "PrimitiveType");
+        primitiveTypes.add(n);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(1)));
         return new Double(1);
     }
 
     public Double visit(QualifiedNameExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "QualifiedNameExpr");
+        qualifiedNameExprs.add(n);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getQualifier().accept(this, arg)));
         return n.getQualifier().accept(this, arg);
     }
 
     public Double visit(ReferenceType n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ReferenceType");
+        referenceTypes.add(n);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getType().accept(this, arg)));
         return n.getType().accept(this, arg);
     }
 
     public Double visit(ReturnStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ReturnStmt");
+        returnStmts.add(n);
         if (n.getExpr() != null) {
             if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getExpr().accept(this, arg)));
             return n.getExpr().accept(this, arg);
@@ -1161,6 +1219,7 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(SingleMemberAnnotationExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "SingleMemberAnnotationExpr");
+        singleMemberAnnotationExprs.add(n);
         n.getName().accept(this, arg);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getMemberValue().accept(this, arg)));
         return n.getMemberValue().accept(this, arg);
@@ -1168,12 +1227,14 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(StringLiteralExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "StringLiteralExpr");
+        stringLiteralExprs.add(n);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(1)));
         return new Double(1);
     }
 
     public Double visit(SuperExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "SuperExpr");
+        superExprs.add(n);
         if (n.getClassExpr() != null) {
             if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getClassExpr().accept(this, arg)));
             return n.getClassExpr().accept(this, arg);
@@ -1184,6 +1245,7 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(SwitchEntryStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "SwitchEntryStmt");
+        switchEntryStmts.add(n);
         if (n.getLabel() != null) {
             n.getLabel().accept(this, arg);
         }
@@ -1203,6 +1265,7 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(SwitchStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "SwitchStmt");
+        switchStmts.add(n);
         n.getSelector().accept(this, arg);
         if (n.getEntries() != null) {
             Double dryValues = new Double(0);
@@ -1221,6 +1284,7 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(SynchronizedStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "SynchronizedStmt");
+        synchronizedStmts.add(n);
         Double expr = n.getExpr().accept(this, arg);
         Double block = n.getBlock().accept(this, arg);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (average(new Double[] {expr, block})));
@@ -1229,6 +1293,7 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(ThisExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ThisExpr");
+        thisExprs.add(n);
         if (n.getClassExpr() != null) {
             if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getClassExpr().accept(this, arg)));
             return n.getClassExpr().accept(this, arg);
@@ -1239,12 +1304,14 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(ThrowStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ThrowStmt");
+        throwStmts.add(n);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getExpr().accept(this, arg)));
         return n.getExpr().accept(this, arg);
     }
 
     public Double visit(TryStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "TryStmt");
+        tryStmts.add(n);
         Double tBlock = new Double(0), cBlock = new Double(0), fBlock = new Double(0);
         tBlock = n.getTryBlock().accept(this, arg);
         if (n.getCatchs() != null) {
@@ -1265,12 +1332,14 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(TypeDeclarationStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "TypeDeclarationStmt");
+        typeDeclarationStmts.add(n);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getTypeDeclaration().accept(this, arg)));
         return n.getTypeDeclaration().accept(this, arg);
     }
 
     public Double visit(TypeParameter n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "TypeParameter");
+        typeParameters.add(n);
         if (n.getTypeBound() != null) {
             Double dryValues = new Double(0);
             int i = 0;
@@ -1287,12 +1356,14 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(UnaryExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "UnaryExpr");
+        unaryExprs.add(n);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getExpr().accept(this, arg)));
         return n.getExpr().accept(this, arg);
     }
 
     public Double visit(VariableDeclarationExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "VariableDeclarationExpr");
+        variableDeclarationExprs.add(n);
         if (n.getAnnotations() != null) {
             for (AnnotationExpr a : n.getAnnotations()) {
                 a.accept(this, arg);
@@ -1311,6 +1382,7 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(VariableDeclarator n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "VariableDeclarator");
+        variableDeclarators.add(n);
         n.getId().accept(this, arg);
         if (n.getInit() != null) {
             if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getInit().accept(this, arg)));
@@ -1322,18 +1394,21 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(VariableDeclaratorId n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "VariableDeclaratorId");
+        variableDeclaratorIds.add(n);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(0)));
         return new Double(0);
     }
 
     public Double visit(VoidType n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "VoidType");
+        voidTypes.add(n);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(0)));
         return new Double(0);
     }
 
     public Double visit(WhileStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "WhileStmt");
+        whileStmts.add(n);
         Double cond = n.getCondition().accept(this, arg);
         Double body = n.getBody().accept(this, arg);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (average(new Double[] {cond/2, body})));
@@ -1342,6 +1417,7 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(WildcardType n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "WildcardType");
+        wildcardTypes.add(n);
         if (n.getExtends() != null) {
             n.getExtends().accept(this, arg);
         }
@@ -1354,12 +1430,14 @@ public class AllPairsVisitor<A> implements GenericVisitor<Double, A> {
 
     public Double visit(BlockComment n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "BlockComment");
+        blockComments.add(n);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(0)));
         return new Double(0);
     }
 
     public Double visit(LineComment n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "LineComment");
+        lineComments.add(n);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(0)));
         return new Double(0);
     }

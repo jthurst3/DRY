@@ -1,4 +1,4 @@
-/** ZeroVisitor.java
+/** ZeroHeuristic.java
  * Modified from Julio Vilmar Gesser's GenericVisitorAdapter
  * to compute dryness scores of nodes
  * 
@@ -102,13 +102,13 @@ import japa.parser.ast.visitor.GenericVisitor;
 /**
  * @author J. Hassler Thurston
  */
-public class ZeroVisitor<A> implements GenericVisitor<Double, A> {
+public class ZeroHeuristic<A> implements GenericVisitor<Double, A> {
 
     boolean comments = false;
-    public ZeroVisitor(boolean comments) {
+    public ZeroHeuristic(boolean comments) {
         this.comments = comments;
     }
-    public ZeroVisitor() {
+    public ZeroHeuristic() {
         this.comments = false;
     }
     public void setComments(boolean val) {
