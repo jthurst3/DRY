@@ -45,7 +45,8 @@ public class DRY {
     static String heuristic;
     
     // available heuristics to use
-    static String[] heuristics = new String[] {"ZeroVisitor", "Iteration1Visitor"};
+    static String[] heuristics = new String[] {"ZeroHeuristic", "Iteration1Heuristic", "AllPairsNaiveHeuristic",
+        "AllPairsWeightedHeuristic"};
     
     /** 
      * Main method
