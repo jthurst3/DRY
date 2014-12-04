@@ -14,9 +14,9 @@
 
 DRY, which stands for ``Don't Repeat Yourself'', is a principle in software engineering that discourages programmers from
 writing duplicate code while programming. Since following the DRY principle has many benefits, it is important that it 
-be measured. We present a few heuristics for measuring DRY, mostly followed from [people's answers to the problem of] detecting
+be measured. We present a few heuristics for measuring DRY, mostly followed from results of detecting
 similarity between two programs. We show how these heuristics lay the foundation for future work, and how they
- may turn out useful for encouraging amateur programmers to become better programmers.
+ may turn out useful for encouraging amateur programmers to improve their coding style.
 
 \end{abstract}
 
@@ -30,21 +30,21 @@ We thus set out to create a measure of ``DRYness'', so that we can evaluate how 
 By creating such a measure, we can not only analyze code in a new, objective way, but we can also try to encourage amateur programmers
 to reflect on their code design and improve their coding style if necessary.
 
-However, coming up with an objective measure is subject to many difficulties. First, we have searched the literature and have only found a few measures described, so we are one of the first to try to objectively define a DRYness measure.
+However, coming up with an objective measure is subject to many difficulties. First, we have searched the literature and have only found a few similar measures described, so we are one of the first to try to objectively define a DRYness measure.
 Second, once we have a measure of DRYness,
 it is hard to argue objectivity of the measure, since in some sense the way we measure modularity of code is subject to personal
 interpretation. Because of these difficulties, we have chosen to take a slightly different approach. We have created several 
 heuristics for measuring the modularity of code, and compare the heuristics by testing and comparing them on a number of different
-hand-written programs which we feel captivate many cases of modular or not modular design.
+hand-written programs which we feel captivate many cases of modular or non-modular design.
 
 \section{Related Work} As stated above, we think we are one of the first ones to come up with a measure of DRYness. There have been
-some attempts in the past to evaluate program modularity, which for purposes of this paper will be considered the same as DRYness.
+some attempts in the past to evaluate program modularity, which for purposes of this paper will be considered the same as program DRYness.
 Baker et. al.\cite{Modularity1979} describe an approach to measure effort expended while writing a program in order
 to determine when program modularity is beneficial. To Baker et. al., effort expended is defined as the ratio of program volume to 
 the ``level of implementation'', which are both based on counting the number of total and distinct operands and operators in a program.
 They then use their measure of effort, which they claim measures program modularity accurately, to evaluate over 500 programs to
 determine when it is useful to modularize code. Ratiu et. al.\cite{LogicalModularity} develop a heuristic that determines the 
-difference between how code is modularized and how it should be modularized based on the underlying logic. However, their heuristic
+difference between how code is modularized and how it \textit{should} be modularized based on the underlying logic. However, their heuristic
 evaluates program structure as a whole, meaning that they analyze packages, classes, and functions/methods (and their names) but not the 
 content of these functions or methods.
 
@@ -53,23 +53,31 @@ Besides the two papers described above, we have found that much related work has
 This is useful for detecting plagiarism among amateur student programmers, and detecting whether other concepts or programs
 have been implemented before. Joy, Joy, and Luck \cite{PlagiarismProgrammingAssignments} note that since much of student plagiarism involves changing a program structurally (e.g. replacing a for loop with a while loop) and lexically (e.g. rewording comments), they can
 detect similarity with an incremental comparison method, whereby they study different possible modifications of two programs.
-Whale \cite{ProgramSimilarityPopulations} takes a slightly different approach, whereby he counts the number of occurrences of certain attributes of programs (such as the number of unique operators and operands), and combines this metric with a similarity measure over optimized versions of code at runtime. Similar to the approach taken by Baker et. al. in\cite{Modularity1979}, these approaches involve counting the occurrences of certain attributes within programs, such as logical operators, operands, and keywords.
+Whale \cite{ProgramSimilarityPopulations} takes a slightly different approach, whereby he counts the number of occurrences of certain attributes of programs (such as the number of unique operators and operands), and combines this metric with a similarity measure over optimized versions of code at runtime. Similar to \cite{Modularity1979}, these approaches involve counting the occurrences of certain attributes within programs, such as logical operators, operands, and keywords.
 
-Much of the other related work we have found centers on two different ideas for detecting similarity or modularity: counting occurrences
+Much of the other related work we have found centers on two different ideas for detecting similarity or modularity
+(one of which was just described): counting occurrences
 of certain attributes and detecting similarity of parse trees. Counting occurrences of certain attributes is relatively easy, as we can
 determine these counts by a single pass through a program. Moreover, many people have found this approach to detect similarity 
 somewhat accurately \cite{Modularity1979}\cite{PlagiarismProgrammingAssignments}. However, there are many instances when counts of
 logical operators and operands could be the same, but programs could be very different. Thus the need for detecting structural similarity.
 
 Detecting structural similarity is relatively hard, since we first must perform a lexical analysis and a parse of a program, which takes
-multiple passes over a program. Once we have parse trees for programs, it is then hard to determine which subtrees to compare for
+multiple passes over a program. Once we have parse trees for programs, it is also then hard to determine which subtrees to compare for
 similarity, and furthermore how to compare them. However, such an analysis can have the potential to be very useful and beneficial
 for determining similarity\cite{ProgramSimilarityPopulations}\cite{PlagiarismProgrammingAssignments}.
 
 \section{Design and Implementation}
 
+\paragraph{DRYness score}
+
+We will define the DRYness score of a program to be in the range $[0,1]$. 
+
 Although much of the current research on program similarity centers around plagiarism detection, similar techniques can nonetheless
- be used to evaluate similarity \textit{within} a program. 
+ be used to evaluate similarity \textit{within} a program. As stated above, we created various heuristics that center around
+structural similarity of subtrees, and then evaluated them on a number of example programs to evaluate their accuracy. Because there
+are very few other metrics for DRYness, these example programs do \textit{not} technically count as labeled data, although we use
+them as if they are labeled. More specifically, for each example program, we have a rough idea of its DRYness score.
 We have created a few DRYness measures to analyze blocks of a program for lexical and structural similarities similar to \cite{ProgramSimilarityPopulations}. ... For example, given two methods of a Java program, I will compare/contrast them by first counting the number of occurrences of certain attributes of these two methods, and then analyze the methods for structural similarity. I can then combine the results of these two metrics to produce a real number between 0 and 1, that will measure the amount of similarity between those two methods. If I then were to calculate this similarity between all methods in a Java program, and calculate measures of similarity between other attributes of the Java code, such as expressions and conditionals, I would be able to compute a measure of internal similarity for the program itself. This would also take the form of a real number between 0 and 1 (0 being completely ``dry''), and would constitute the ``dryness'' metric.
 
 It is important to note that this metric can be extended to other programming languages besides Java, although I propose to solely focus on Java due to its enormous popularity among amateur programmers. As an extension, I will also try to implement a system that gives an amateur programmer suggestions on how to improve their code to be more ``dry''. To do this, my program would first point out to the programmer which attributes of their existing program are not dry, and then suggest different ways of structuring their program that would decrease the dryness metric. Due to the undecidability of detecting whether two programs produce the same output, however, I suspect my program will not be able to give a programmer concrete recommendations of how to modify their existing program.
@@ -83,7 +91,7 @@ even though there has been a lot of research on a similar aspect of program simi
 different programs for plagiarism detection. Similar to a couple of earlier heursitics, our heuristics involve
 computing the structural similarity of a Java program by examining the similarity between subtrees of a given Java parse tree. 
 We have compared these heuristics against each other, and found that []. More research must still be done however in order to
-improve and optimize the given heuristics, and argue subjectively why they are [good] heuristics.
+improve and optimize the given heuristics, and argue subjectively why they are decent.
 
 \section{Acknowledgements}
 
