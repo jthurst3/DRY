@@ -69,20 +69,108 @@ for determining similarity\cite{ProgramSimilarityPopulations}\cite{PlagiarismPro
 
 \section{Design and Implementation}
 
-\paragraph{DRYness score}
+\subsection{DRYness score and setup}
 
-We will define the DRYness score of a program to be in the range $[0,1]$. 
+We will define the DRYness score of a program to be in the range $[0,1]$. A DRYness score close to 0 means the program is ``very dry'',
+and a score near 1 means the program is ``very wet'', i.e. repetitive. (For implementation purposes, a DRYness score of -1 means the
+program does not compile, or our heuristic could not compute the DRYness score).
 
-Although much of the current research on program similarity centers around plagiarism detection, similar techniques can nonetheless
- be used to evaluate similarity \textit{within} a program. As stated above, we created various heuristics that center around
-structural similarity of subtrees, and then evaluated them on a number of example programs to evaluate their accuracy. Because there
-are very few other metrics for DRYness, these example programs do \textit{not} technically count as labeled data, although we use
-them as if they are labeled. More specifically, for each example program, we have a rough idea of its DRYness score.
-We have created a few DRYness measures to analyze blocks of a program for lexical and structural similarities similar to \cite{ProgramSimilarityPopulations}. ... For example, given two methods of a Java program, I will compare/contrast them by first counting the number of occurrences of certain attributes of these two methods, and then analyze the methods for structural similarity. I can then combine the results of these two metrics to produce a real number between 0 and 1, that will measure the amount of similarity between those two methods. If I then were to calculate this similarity between all methods in a Java program, and calculate measures of similarity between other attributes of the Java code, such as expressions and conditionals, I would be able to compute a measure of internal similarity for the program itself. This would also take the form of a real number between 0 and 1 (0 being completely ``dry''), and would constitute the ``dryness'' metric.
+Our DRYness score is computed using Java, meaning that our heuristics only work on Java files. However, similar heuristics could 
+be used to detect DRYness for most other programming languages. We chose to implement our heuristics for Java files since Java 
+is a popular programming language among amateur programmers, and we found a convenient external library to lexically analyze and parse
+Java files efficiently \cite{Javaparser}.
 
-It is important to note that this metric can be extended to other programming languages besides Java, although I propose to solely focus on Java due to its enormous popularity among amateur programmers. As an extension, I will also try to implement a system that gives an amateur programmer suggestions on how to improve their code to be more ``dry''. To do this, my program would first point out to the programmer which attributes of their existing program are not dry, and then suggest different ways of structuring their program that would decrease the dryness metric. Due to the undecidability of detecting whether two programs produce the same output, however, I suspect my program will not be able to give a programmer concrete recommendations of how to modify their existing program.
+Our Java program is defined in \texttt{DRY.java}, and takes command-line arguments specifying which DRYness heuristic to use
+and which Java file to test. It also takes an optional argument that allows one to print out the result in verbose mode.
+
+Our heuristics are defined in the files \texttt{*Heuristic.java}, and implement the \texttt{GenericVisitor} class of Javaparser, 
+which visits each subtree of the test file's Java parse tree in pre-order. We use the Bash script \texttt{testScript.sh} to run
+\texttt{DRY.java} on each test file and each heuristic. Our results are contained within the \texttt{results.csv} file.
+
+\subsection{Test dataset}
+
+We compute the DRYness heuristics (described below) on seven different test Java files, which we feel captures the basic properties
+of DRYness somewhat well. We also test our heuristics on our own Java programs, to give us some insight on how well our DRYness
+program is in itself modular. The seven different test files are located in the \texttt{samples/} directory. Of these seven files, one contains an empty Java class, which helps to test whether our heuristics are well-defined. The other six are written in pairs,
+such that one Java file of the pair is a wetter version of the other. For example, \texttt{HelloWorld.java} contains a for loop
+that prints ``Hello world!'' ten times, and \texttt{HelloWorldWet.java} contains ten successive statements, each printing
+``Hello World!''. We thus expect the wet versions of the pair to have a DRYness score close to 1, and the dry versions of the pair
+to output a score close to 0. Therefore, by testing whether our heuristics return relevant values on these pairs of files,
+we can somewhat objectively evaluate the success of our heuristics.
+
+\subsection{Heuristics}
+
+We have so far implemented four heuristics (three non-trivial ones) and tested them on our test dataset. These heuristics have varying levels of success
+and employ various techniques to evaluate DRYness structurally. Our trivial heuristic always returns a DRYness score of 0 (for a
+baseline), and is defined in \texttt{ZeroHeuristic.java}. We also have yet to design the last of three heuristics,
+for which we give brief descriptions of how they will operate, but no results.
+
+\paragraph{Iteration 1 Heuristic}
+
+The first non-trivial heuristic is defined in \\\texttt{Iteration1Heuristic.java}. This heuristic defins DRYness recursively, 
+starting from the root node of a program's parse tree. For the heuristic to be well-defined, we must define the DRYness score of
+each type of parse tree node, and output a number between 0 and 1. For example, our definition of the DRYness score of an if statement
+will be defined differently than the DRYness score of a variable assignment statement. Thus, for each type of parse tree node,
+the Iteration 1 Heuristic mostly computes the average of the DRYness scores for each sub-tree of a given node. For trivial parse
+tree nodes, the Iteration 1 Heuristic returns either 0 or 1. Furthermore, for a given Block Statement (comprising a sequence of statements), 
+the Iteration 1 Heuristic compares each statement pairwise for equality. If there are pairs of statements that are equal, the 
+heuristic increases the DRYness score by a small amount.
+
+\paragraph{All Pairs Naive Heuristic}
+
+The second non-trivial heuristic, the All Pairs Naive Heuristic, is defined in \texttt{AllPairsNaiveHeuristic.java}. 
+For each parse tree node that the heuristic visits, it first adds the node and its contents to an \texttt{ArrayList} of other similar
+parse tree nodes. This means that after visiting all nodes in a parse tree, the heuristic has a sequence of \texttt{ArrayList}s
+in memory, with each \texttt{ArrayList} comprising all subtrees of a given type. The heuristic then compares the elements of each
+ArrayList pairwise, checking for equality. If there are pairs of subtrees that are equal, the heuristic will thus increase the
+DRYness score by a small amount. The final DRYness score is taken to be the average of the results of the pairwise equality checks,
+where each pairwise equality check is computed as follows: $$\frac{\#equalPairs}{\#totalPairs}$$, where $\#equalPairs$ is the
+number of pairs of subtrees of a given type that are the same, and $\#totalPairs$ is the total number of pairwise comparisons made
+for a given type of node.
+
+\paragraph{All Pairs Weighted Heuristic}
+
+The third non-trivial heuristic, the All Pairs Weighted Heuristic, is defined in \texttt{AllPairsWeightedHeuristic.java}.
+Similar to the All Pairs Naive Heuristic, this heursitic compares parse tree nodes of a given type in pairs, checking for equality.
+However, the All Pairs Weighted Heuristic weights each type of equality check differently, so that, for example, equal statements
+within a Block Statement are penalized more heavily than equal comment strings. It thus returns a weighted average of the result
+of each pairwise equality check.
+
+\paragraph{Tree Edit Distance Heuristic}
+
+The first yet-to-be-implemented heuristic, the Tree Edit Distance Heuristic, will operate very similarly to the All Pairs
+Naive Heuristic. However, instead of checking whether two parse tree nodes are equal, this heuristic will employ tree edit
+distance to check the structural similarity of two nodes. Given two subtrees, the tree edit distance between these two
+trees is defined to be the number of insertions, deletions, or renaming of nodes in one tree such that the trees are
+identical\cite{TreeEditDistance}. Thus, a tree edit distance of 0 implies that the two trees are equal.
+
+The Tree Edit Distance heuristic will then compute tree edit distance for each pair of subtrees, and increase the DRYness score
+in a way that is inversely proportional to its tree edit distance. However, computing tree edit distance is relatively expensive,
+requiring $O(n^2)$ time for each call, where $n$ is the number of nodes in the largest tree \cite{TreeEditDistance}.
+
+\paragraph{Tree Edit Distance Weighted Heuristic}
+
+The Tree Edit Distance Weighted Heursitic, also yet-to-be-implemnted, will be exactly the same as the Tree Edit Distance Heuristic,
+except that we will assign weights (similar to the All Pairs Weighted Heuristic) to each type of parse tree node.
+
+\paragraph{Baker Heuristic}
+
+The Baker Heuristic will be based off of a proposed heuristic for measuring program ``volume'' proposed
+by Baker et. al.\cite{Modularity1979}. As described above, this heuristic indirectly computes DRYness by way of counting the
+number of logical operands and operators within a program. Unlike the previous heuristics, this is a heuristic based on
+lexical similarity instead of structural similarity. We plan to compare the results of this heuristic to our other six
+heuristics to determine how well a simple lexical heuristic performs relative to the others.
 
 \section{Results}
+
+Our results are contained within \texttt{results.csv}. Here, we can see that the Iteration 1 Heuristic outputs DRYness scores
+that are significantly higher for sample programs that are wet, which is to be expected. We see that the All Pairs
+heuristics also have this property, although the DRYness scores for all sample files are very close to 0 (mostly less than 0.1).
+As expected, the All Pairs Weighted Heuristic gives values closer to 1 than the All Pairs Naive Heuristic for wet Java files.
+
+Further results and analysis will be discussed once the other three heuristics are implemented and tested. We also plan to
+provide an in-depth discussion of the consequences of our results and ideas for future lines of research. For now however,
+we can conclude that the given heuristics compute DRYness to a somewhat accurate level.
 
 \section{Conclusion}
 
@@ -90,7 +178,8 @@ Evaluating the DRYness of a program or its degree of modularity is currently con
 even though there has been a lot of research on a similar aspect of program similarity -- that is, examining two
 different programs for plagiarism detection. Similar to a couple of earlier heursitics, our heuristics involve
 computing the structural similarity of a Java program by examining the similarity between subtrees of a given Java parse tree. 
-We have compared these heuristics against each other, and found that []. More research must still be done however in order to
+We have compared these heuristics against each other, and found that the heuristics compute a measure of DRYness to a 
+somewhat accurate extent. More research must still be done however in order to
 improve and optimize the given heuristics, and argue subjectively why they are decent.
 
 \section{Acknowledgements}

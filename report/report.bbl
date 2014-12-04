@@ -1,5 +1,16 @@
 \begin{thebibliography}{1}
 
+\bibitem{Javaparser}
+javaparser - java 1.5 parser and ast - google project hosting.
+\newblock \url{https://code.google.com/p/javaparser/}.
+\newblock Accessed: 2014-12-03.
+
+\bibitem{TreeEditDistance}
+Tree edit distance - tree edit distance theory.
+\newblock
+  \url{http://www.inf.unibz.it/dis/projects/tree-edit-distance/tree-edit-distance.php}.
+\newblock Accessed: 2014-12-03.
+
 \bibitem{Modularity1979}
 A.~L. Baker and S.~H. Zweben.
 \newblock The use of software science in evaluating modularity concepts.
