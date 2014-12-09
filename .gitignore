@@ -3,3 +3,6 @@ sources/
 
 # Sublime Text
 .nfs*
+
+# possibly sensitive PDF files
+sources/*.pdf
