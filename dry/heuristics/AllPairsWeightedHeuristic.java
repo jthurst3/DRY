@@ -1,5 +1,5 @@
 /**
- * AllPairsNaiveHeuristic.java
+ * AllPairsWeightedHeuristic.java
  * Modified from Julio Vilmar Gesser's GenericVisitorAdapter
  * to compute dryness scores of nodes
  *
@@ -8,6 +8,13 @@
  * We then loop through each type of statement and compare the
  * expressions pairwise for equality. If there are pairs of equal
  * statements, the dryness score gets penalized.
+ *
+ * This heuristic extends the AllPairsNaiveHeuristic, so that 
+ * we introduce a weighting factor for each type of 
+ * expression that gets calculated in the average. For example,
+ * block statements have a large weight, meaning that
+ * repetitions among block statements will penalize the DRYness
+ * score more than, say, repetitions among package statements.
  * 
  * @author J. Hassler Thurston
  * Modified from javaparser by Julio Vilmar Gesser
@@ -17,7 +24,7 @@
  * Fall 2014
 */
 
-// package dry.visitors;
+package dry.heuristics;
 
 import japa.parser.ast.Node;
 import japa.parser.ast.BlockComment;
@@ -113,7 +120,7 @@ import java.util.ArrayList;
 /**
  * @author J. Hassler Thurston
  */
-public class AllPairsNaiveHeuristic<A> implements GenericVisitor<Double, A> {
+public class AllPairsWeightedHeuristic<A> implements GenericVisitor<Double, A> {
 
     // lists of expressions are stored here
     static ArrayList<AnnotationDeclaration> annotationDeclarations;
@@ -196,8 +203,89 @@ public class AllPairsNaiveHeuristic<A> implements GenericVisitor<Double, A> {
     static ArrayList<BlockComment> blockComments;
     static ArrayList<LineComment> lineComments;
 
+    // list of weights are stored here
+    static final Double annotationDeclarationWeight = 0.2D;
+    static final Double annotationMemberDeclarationWeight = 0.2D;
+    static final Double arrayAccessExprWeight = 0.2D;
+    static final Double arrayCreationExprWeight = 0.2D;
+    static final Double arrayInitializerExprWeight = 0.2D;
+    static final Double assertStmtWeight = 0.4D;
+    static final Double assignExprWeight = 0.4D;
+    static final Double binaryExprWeight = 0.5D;
+    static final Double blockStmtWeight = 10.0D;
+    static final Double booleanLiteralExprWeight = 0.4D;
+    static final Double breakStmtWeight = 0.4D;
+    static final Double castExprWeight = 0.1D;
+    static final Double catchClauseWeight = 0.3D;
+    static final Double charLiteralExprWeight = 0.3D;
+    static final Double classExprWeight = 0.2D;
+    static final Double classOrInterfaceDeclarationWeight = 0.2D;
+    static final Double classOrInterfaceTypeWeight = 0.2D;
+    static final Double compilationUnitWeight = 0.2D;
+    static final Double conditionalExprWeight = 5.0D;
+    static final Double constructorDeclarationWeight = 0.2D;
+    static final Double continueStmtWeight = 1.0D;
+    static final Double doStmtWeight = 1.0D;
+    static final Double doubleLiteralExprWeight = 1.0D;
+    static final Double emptyMemberDeclarationWeight = 0.4D;
+    static final Double emptyStmtWeight = 0.4D;
+    static final Double emptyTypeDeclarationWeight = 0.2D;
+    static final Double enclosedExprWeight = 1.0D;
+    static final Double enumConstantDeclarationWeight = 0.2D;
+    static final Double enumDeclarationWeight = 0.2D;
+    static final Double explicitConstructorInvocationStmtWeight = 0.2D;
+    static final Double expressionStmtWeight = 10.0D;
+    static final Double fieldAccessExprWeight = 0.2D;
+    static final Double fieldDeclarationWeight = 0.2D;
+    static final Double foreachStmtWeight = 5.0D;
+    static final Double forStmtWeight = 5.0D;
+    static final Double ifStmtWeight = 5.0D;
+    static final Double importDeclarationWeight = 0.5D;
+    static final Double initializerDeclarationWeight = 0.4D;
+    static final Double instanceOfExprWeight = 0.4D;
+    static final Double integerLiteralExprWeight = 0.3D;
+    static final Double integerLiteralMinValueExprWeight = 0.3D;
+    static final Double javadocCommentWeight = 0.2D;
+    static final Double labeledStmtWeight = 0.4D;
+    static final Double longLiteralExprWeight = 0.3D;
+    static final Double longLiteralMinValueExprWeight = 0.3D;
+    static final Double markerAnnotationExprWeight = 0.2D;
+    static final Double memberValuePairWeight = 0.2D;
+    static final Double methodCallExprWeight = 0.8D;
+    static final Double methodDeclarationWeight = 0.2D;
+    static final Double nameExprWeight = 0.2D;
+    static final Double normalAnnotationExprWeight = 0.2D;
+    static final Double nullLiteralExprWeight = 0.5D;
+    static final Double objectCreationExprWeight = 1.0D;
+    static final Double packageDeclarationWeight = 0.2D;
+    static final Double parameterWeight = 2.0D;
+    static final Double primitiveTypeWeight = 0.2D;
+    static final Double qualifiedNameExprWeight = 0.2D;
+    static final Double referenceTypeWeight = 0.5D;
+    static final Double returnStmtWeight = 0.5D;
+    static final Double singleMemberAnnotationExprWeight = 0.2D;
+    static final Double stringLiteralExprWeight = 2.0D;
+    static final Double superExprWeight = 0.4D;
+    static final Double switchEntryStmtWeight = 1.0D;
+    static final Double switchStmtWeight = 1.0D;
+    static final Double synchronizedStmtWeight = 1.0D;
+    static final Double thisExprWeight = 1.0D;
+    static final Double throwStmtWeight = 1.0D;
+    static final Double tryStmtWeight = 1.0D;
+    static final Double typeDeclarationStmtWeight = 0.2D;
+    static final Double typeParameterWeight = 0.2D;
+    static final Double unaryExprWeight = 1.0D;
+    static final Double variableDeclarationExprWeight = 1.0D;
+    static final Double variableDeclaratorWeight = 1.0D;
+    static final Double variableDeclaratorIdWeight = 1.0D;
+    static final Double voidTypeWeight = 0.2D;
+    static final Double whileStmtWeight = 5.0D;
+    static final Double wildcardTypeWeight = 2.0D;
+    static final Double blockCommentWeight = 0.2D;
+    static final Double lineCommentWeight = 0.2D;
+
     boolean comments = false;
-    public AllPairsNaiveHeuristic(boolean comments) {
+    public AllPairsWeightedHeuristic(boolean comments) {
         this.comments = comments;
         // initialize pairwise variables
         annotationDeclarations = new ArrayList<AnnotationDeclaration>();
@@ -280,7 +368,7 @@ public class AllPairsNaiveHeuristic<A> implements GenericVisitor<Double, A> {
         blockComments = new ArrayList<BlockComment>();
         lineComments = new ArrayList<LineComment>();
     }
-    public AllPairsNaiveHeuristic() {
+    public AllPairsWeightedHeuristic() {
         this(false);
     }
     public void setComments(boolean val) {
@@ -372,14 +460,95 @@ public class AllPairsNaiveHeuristic<A> implements GenericVisitor<Double, A> {
             wildcardTypes,
             blockComments,
             lineComments};
-        Double[] results = new Double[arrayLists.length];
+        Double[] weights = new Double[] {
+            annotationDeclarationWeight,
+            annotationMemberDeclarationWeight,
+            arrayAccessExprWeight,
+            arrayCreationExprWeight,
+            arrayInitializerExprWeight,
+            assertStmtWeight,
+            assignExprWeight,
+            binaryExprWeight,
+            blockStmtWeight,
+            booleanLiteralExprWeight,
+            breakStmtWeight,
+            castExprWeight,
+            catchClauseWeight,
+            charLiteralExprWeight,
+            classExprWeight,
+            classOrInterfaceDeclarationWeight,
+            classOrInterfaceTypeWeight,
+            compilationUnitWeight,
+            conditionalExprWeight,
+            constructorDeclarationWeight,
+            continueStmtWeight,
+            doStmtWeight,
+            doubleLiteralExprWeight,
+            emptyMemberDeclarationWeight,
+            emptyStmtWeight,
+            emptyTypeDeclarationWeight,
+            enclosedExprWeight,
+            enumConstantDeclarationWeight,
+            enumDeclarationWeight,
+            explicitConstructorInvocationStmtWeight,
+            expressionStmtWeight,
+            fieldAccessExprWeight,
+            fieldDeclarationWeight,
+            foreachStmtWeight,
+            forStmtWeight,
+            ifStmtWeight,
+            importDeclarationWeight,
+            initializerDeclarationWeight,
+            instanceOfExprWeight,
+            integerLiteralExprWeight,
+            integerLiteralMinValueExprWeight,
+            javadocCommentWeight,
+            labeledStmtWeight,
+            longLiteralExprWeight,
+            longLiteralMinValueExprWeight,
+            markerAnnotationExprWeight,
+            memberValuePairWeight,
+            methodCallExprWeight,
+            methodDeclarationWeight,
+            nameExprWeight,
+            normalAnnotationExprWeight,
+            nullLiteralExprWeight,
+            objectCreationExprWeight,
+            packageDeclarationWeight,
+            parameterWeight,
+            primitiveTypeWeight,
+            qualifiedNameExprWeight,
+            referenceTypeWeight,
+            returnStmtWeight,
+            singleMemberAnnotationExprWeight,
+            stringLiteralExprWeight,
+            superExprWeight,
+            switchEntryStmtWeight,
+            switchStmtWeight,
+            synchronizedStmtWeight,
+            thisExprWeight,
+            throwStmtWeight,
+            tryStmtWeight,
+            typeDeclarationStmtWeight,
+            typeParameterWeight,
+            unaryExprWeight,
+            variableDeclarationExprWeight,
+            variableDeclaratorWeight,
+            variableDeclaratorIdWeight,
+            voidTypeWeight,
+            whileStmtWeight,
+            wildcardTypeWeight,
+            blockCommentWeight,
+            lineCommentWeight};
+        Double totalWeight = sum(weights);
+        Double[] weightedSums = initializeDoubleArray(arrayLists.length);
+        Double[] pairs = initializeDoubleArray(arrayLists.length);
         for (int ls = 0; ls < arrayLists.length; ls++) {
             // convert the list to an array
             Node[] stmts = new Node[arrayLists[ls].size()];
             arrayLists[ls].toArray(stmts);
             // compare elements pairwise
-            Double equalityCounter = 0D;
-            int pairs = 0;
+            // Double weightedEqualityCounter = 0D;
             // Double dryValues = 0D;
             int i = 0;
             if (stmts != null) {
@@ -388,15 +557,14 @@ public class AllPairsNaiveHeuristic<A> implements GenericVisitor<Double, A> {
                     i++;
                     for (int s2 = 0; s2 < s1; s2++) {
                         if (stmts[s1].equals(stmts[s2])) {
-                            equalityCounter = equalityCounter + 1;
+                            weightedSums[ls] = weightedSums[ls] + weights[ls]*1;
                         }
-                        pairs++;
+                        pairs[ls] = pairs[ls] + weights[ls]*1;
                     }
                 }
             }
-            results[ls] = divide(equalityCounter,pairs);
         }
-        result = average(results);
+        result = divide(sum(weightedSums), sum(pairs));
         return result;
     }
 
@@ -1458,6 +1626,32 @@ public class AllPairsNaiveHeuristic<A> implements GenericVisitor<Double, A> {
             return new Double(0);
         }
         return sum/i;
+    }
+    // computes the division of two Doubles, but if the second Double is 0, we return 0
+    public Double divide(Double sum, Double i) {
+        // roundabout way to check whether i is 0
+        if (i < 0.0001 && i > -0.0001) {
+            return new Double(0);
+        }
+        return sum/i;
+    }
+
+    // computes the sum of an array of Doubles
+    public Double sum(Double[] values) {
+        Double result = 0D;
+        for (int i = 0; i < values.length; i++) {
+            result = result + values[i];
+        }
+        return result;
+    }
+
+    // initializes an array of Doubles to all have 0 values
+    public Double[] initializeDoubleArray(int capacity) {
+        Double[] arr = new Double[capacity];
+        for (int i = 0; i < capacity; i++) {
+            arr[i] = 0D;
+        }
+        return arr;
     }
 
 }

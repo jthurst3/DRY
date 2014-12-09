@@ -11,7 +11,7 @@
  * Fall 2014
 */
 
-// package dry.visitors;
+package dry.heuristics;
 
 import japa.parser.ast.BlockComment;
 import japa.parser.ast.CompilationUnit;

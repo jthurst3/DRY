@@ -12,7 +12,7 @@
  * Fall 2014
 */
 
-// package dry;
+package dry;
 
 import japa.parser.ast.CompilationUnit;
 import japa.parser.JavaParser;
@@ -31,7 +31,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Arrays;
 
-// import dry.visitors.*;
+import dry.heuristics.*;
 
 
 
@@ -86,11 +86,12 @@ public class DRY {
             System.exit(0);
         }
         // check if we have a valid heuristic
-        heuristic = args[0];
-        if(!Arrays.asList(heuristics).contains(heuristic)) {
-            System.err.println("invalid heuristic... " + heuristic);
+        String baseHeuristic = args[0];
+        if(!Arrays.asList(heuristics).contains(baseHeuristic)) {
+            System.err.println("invalid heuristic... " + baseHeuristic);
             System.exit(1);
         }
+        heuristic = "dry.heuristics." + baseHeuristic;
         // check if we have a valid filename
         filename = args[1];
         // parse the other arguments

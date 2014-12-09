@@ -7,7 +7,7 @@
 # Available heuristics for testing
 heuristics="ZeroHeuristic Iteration1Heuristic AllPairsNaiveHeuristic AllPairsWeightedHeuristic "
 # Available files for testing
-files="samples/*.java AllPairsWeightedHeuristic.java AllPairsNaiveHeuristic.java DRY.java Iteration1Heuristic.java ZeroHeuristic.java "
+files="dry/samples/*.java dry/heuristics/AllPairsWeightedHeuristic.java dry/heuristics/AllPairsNaiveHeuristic.java dry/DRY.java dry/heuristics/Iteration1Heuristic.java dry/heuristics/ZeroHeuristic.java "
 # File to put all the data
 resultfile="results.csv"
 
@@ -20,7 +20,7 @@ for h in $heuristics; do
 	echo -n "$h," >> "$resultfile"
 	for f in $files; do
 		# run the tests
-		java DRY "$h" "$f" >> "$resultfile"
+		java dry.DRY "$h" "$f" >> "$resultfile"
 	done
 	# Print a newline
 	echo >> "$resultfile"
