@@ -4,6 +4,7 @@
 # CSC200H Research Project
 # Fall 2014
 
+
 # Available heuristics for testing
 heuristics="ZeroHeuristic Iteration1Heuristic AllPairsNaiveHeuristic AllPairsWeightedHeuristic "
 # Available files for testing
@@ -11,6 +12,8 @@ files="dry/samples/*.java dry/heuristics/AllPairsWeightedHeuristic.java dry/heur
 # File to put all the data
 resultfile="results.csv"
 
+# compile Java files
+javac -sourcepath dry:dry/heuristics dry/*.java
 
 # Print a header to the results file
 echo "Heuristic,`echo $files | sed 's/ /,/'`" > "$resultfile"
