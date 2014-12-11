@@ -1,4 +1,46 @@
-
-All pairs edit distance:
-	- Create a visitor that goes through and gets lists of all different types of a program (e.g. all StatementLists)
-	- For each type, compare pairs using Edit Distance
+Modified Baker heuristic with n/N, where:
+	n = number of distinct operators and operands
+	N = total number of operators and operands
+	n1 = number of distinct operators
+	n2 = number of distinct operands
+	N1 = total number of operators
+	N2 = total number of operands
+	n = n1 + n2
+	N = N1 + N2
+Write more test files
+Test on all heuristics
+Lint code
+Writeup
+	Introduction
+		Who came up with DRY?
+		Can you code DRY? (our question)
+	Related work
+		Cite other related work
+	Design and implementation: DRYness score and setup
+		explain how our program can fail at computing a DRYness score
+	Heuristics: Iteration 1 Heuristic
+		Explain why some trivial nodes get scores of 0 and others scores of 1
+		Specify to what extent DRYness score increases if two block statements are equal
+	Heuristics: All Pairs Native Heuristic
+		Clarify how I'm computing dryness score
+	Heuristics: All Pairs Weighted Heuristic -- fix circled typo
+	Baker Heuristic -- explain modified version and cite Baker's paper
+	Explain why tree edit distance heuristic is hard to compute and not well-defined
+	Results
+		Add graph/figures showing DRYness results
+		This is where specific results go, like scores and computations
+	Conclusions (and Future Work)
+		Fix circled typo
+		This is where abstract conclusions go, like how successful we were and how this relates to the overall "modularity" conversation
+		future work suggestions:
+			tree edit distance heuristic, defining it, and implementing it recursively
+			testing on students' submissions for an assignment, and possibly making it available to amateur programmers
+	Acknowledgements
+		fix spelling of Joe's name
+		thank the people who end up proofreading my final version
+	Move implementation stuff to README
+	Bibliography -- delete URLs for everything except websites/miscellaneous
+Presentation
+	Slides
+	Practice talk
+	Advertise?
