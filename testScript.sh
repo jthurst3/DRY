@@ -6,14 +6,14 @@
 
 
 # Available heuristics for testing
-heuristics="ZeroHeuristic Iteration1Heuristic AllPairsNaiveHeuristic AllPairsWeightedHeuristic "
+heuristics="ZeroHeuristic Iteration1Heuristic AllPairsNaiveHeuristic AllPairsWeightedHeuristic ModifiedBakerHeuristic "
 # Available files for testing
-files="dry/samples/*.java dry/heuristics/AllPairsWeightedHeuristic.java dry/heuristics/AllPairsNaiveHeuristic.java dry/DRY.java dry/heuristics/Iteration1Heuristic.java dry/heuristics/ZeroHeuristic.java "
+files="dry/samples/*.java dry/heuristics/AllPairsWeightedHeuristic.java dry/heuristics/AllPairsNaiveHeuristic.java dry/DRY.java dry/heuristics/Iteration1Heuristic.java dry/heuristics/ModifiedBakerHeuristic.java dry/heuristics/ZeroHeuristic.java "
 # File to put all the data
 resultfile="results.csv"
 
 # compile Java files
-javac -sourcepath dry:dry/heuristics dry/*.java
+javac -sourcepath dry:dry/heuristics dry/*.java dry/heuristics/*.java
 
 # Print a header to the results file
 echo "Heuristic,`echo $files | sed 's/ /,/'`" > "$resultfile"
