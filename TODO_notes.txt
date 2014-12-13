@@ -3,7 +3,7 @@ Lint code
 Writeup
 	Introduction
 		Who came up with DRY?
-		Can you code DRY? (our question)
+		Can you cite?
 	Related work
 		Cite other related work
 	Design and implementation: DRYness score and setup
