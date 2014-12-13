@@ -1,5 +1,0 @@
-Heuristic,samples/DivideByZero.java,samples/DoubleFor.java samples/DoubleForWet.java samples/Factorial.java samples/FactorialWet.java samples/HelloWorld.java samples/HelloWorldWet.java AllPairsWeightedHeuristic.java AllPairsNaiveHeuristic.java DRY.java Iteration1Heuristic.java ZeroHeuristic.java
-ZeroHeuristic,
-Iteration1Heuristic,
-AllPairsNaiveHeuristic,
-AllPairsWeightedHeuristic,

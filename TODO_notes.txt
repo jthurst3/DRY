@@ -1,14 +1,4 @@
-Lint code
-Writeup
-	Design and implementation: DRYness score and setup
-		explain how our program can fail at computing a DRYness score
-	Heuristics: Iteration 1 Heuristic
-		Explain why some trivial nodes get scores of 0 and others scores of 1
-		Specify to what extent DRYness score increases if two block statements are equal
-	Heuristics: All Pairs Native Heuristic
-		Clarify how I'm computing dryness score
-	Baker Heuristic -- explain modified version and cite Baker's paper
-	Explain why tree edit distance heuristic is hard to compute and not well-defined
+README
 Presentation
 	Slides
 	Practice talk
