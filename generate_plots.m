@@ -35,19 +35,19 @@ dryData = dryData(:,drySwapArray);
 
 % PLOTTING
 % make the test bar plot
-testPlot = bar(testData);
+bar(transpose(testData));
 % set the title
 title('Test Data Results');
 xlabel('Java files');
 ylabel('DRYness score');
-saveas(testPlot, 'testPlot', 'pdf');
+saveas(gcf, 'testPlot', 'pdf');
 
 % make the dry bar plot
-dryPlot = bar(dryData);
+bar(transpose(dryData));
 % set the title
 title('Results on Our Implementation');
 xlabel('Java files');
 ylabel('DRYness score');
-saveas(dryPlot, 'dryPlot', 'pdf');
+saveas(gcf, 'dryPlot', 'pdf');
 
-
+exit
