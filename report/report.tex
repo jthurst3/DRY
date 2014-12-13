@@ -92,15 +92,26 @@ We compute the DRYness heuristics (described below) on seven different test Java
 of DRYness somewhat well. Of these seven test files, one consists of an empty class (for a baseline measurement), and the other six are paired,
 three of which are simple, modular programs; and three of which are WET versions of the modular programs. We thus expect the wet versions of the pair to have a DRYness score close to 1, and the dry versions of the pair
 to output a score close to 0. We also test our heuristics on our own Java programs, to give us some insight on how well our DRYness
-program is in itself modular. By testing whether our heuristics return relevant values on these pairs of files,
-we can somewhat objectively evaluate the success of our heuristics.
+programs are in themselves modular, and to see how our heuristics perform on larger Java programs. By testing whether our heuristics return relevant values on these files, we can somewhat objectively evaluate the success of our heuristics.
 
 \subsection{Heuristics}
 
-We have so far implemented four heuristics (three non-trivial ones) and tested them on our test dataset. These heuristics have varying levels of success
+We have so far implemented five heuristics (four non-trivial ones) and tested them on our test dataset. These heuristics have varying levels of success
 and employ various techniques to evaluate DRYness structurally. Our trivial heuristic always returns a DRYness score of 0 (for a
-baseline), and is defined in \texttt{ZeroHeuristic.java}. We also have yet to design the last of three heuristics,
-for which we give brief descriptions of how they will operate, but no results.
+baseline).
+
+\paragraph{Modified Baker Heuristic}
+We decided to implement a modification of an early heuristic that was used to measure program modularity.
+As outlined by Baker et. al. \cite{Baker1979}, the Modified Baker Heuristic involves considering the ratio of distinct operators and operands to the total number of operators and operands. However, we were not able to implement this in its entirety, since the difficulty
+of getting accurate counts of each instance of an operator and an operand is somewhat beyond the scope of the Javaparser library.
+Therefore, we modified the heuristic to compute the ratio of distinct operator and operand \textit{types} to the total number of
+operators and operands. For example, our program will not distinguish between instances of \texttt{+}, \texttt{-}, \texttt{*}, and \texttt{/}, since these are all arithmetic operators. Since there are a very limited number of operator types, we suspect that this
+heuristic may skew the DRYness score.
+
+Since this ratio will be relatively small for modular Java files, we decided to take the difference between 1 and this ratio as the modified Baker heuristic's DRYness score. For more explanation on why this is the case, please see the Results section.
+
+We must note that the heuristic proposed in \cite{Baker1979} is therefore significantly different than the heuristic we implemented.
+This paper explores a concept of program volume, which is computed somewhat differently than this ratio.
 
 \paragraph{Iteration 1 Heuristic}
 
@@ -111,7 +122,8 @@ will be defined differently than the DRYness score of a variable assignment stat
 the Iteration 1 Heuristic mostly computes the average of the DRYness scores for each sub-tree of a given node. For trivial parse
 tree nodes, the Iteration 1 Heuristic returns either 0 or 1. Furthermore, for a given Block Statement (comprising a sequence of statements), 
 the Iteration 1 Heuristic compares each statement pairwise for equality. If there are pairs of statements that are equal, the 
-heuristic increases the DRYness score by a small amount.
+heuristic increases the DRYness score by a small amount, equal to $1/\#totalPairs$. Note that this will keep the DRYness score
+less than 1, since we can only perform this increase once for each pair of statements we consider.
 
 \paragraph{All Pairs Naive Heuristic}
 
@@ -119,11 +131,11 @@ The second non-trivial heuristic, the All Pairs Naive Heuristic, computes DRYnes
 For each parse tree node that the heuristic visits, it first adds the node and its contents to an \texttt{ArrayList} of other similar
 parse tree nodes. This means that after visiting all nodes in a parse tree, the heuristic has a sequence of \texttt{ArrayList}s
 in memory, with each \texttt{ArrayList} comprising all subtrees of a given type. The heuristic then compares the elements of each
-ArrayList pairwise, checking for equality. If there are pairs of subtrees that are equal, the heuristic will thus increase the
-DRYness score by a small amount. The final DRYness score is taken to be the average of the results of the pairwise equality checks,
+ArrayList pairwise, checking for equality. The final DRYness score is taken to be the average of the results of the pairwise equality checks,
 where each pairwise equality check is computed as follows: $$\frac{\#equalPairs}{\#totalPairs}$$, where $\#equalPairs$ is the
 number of pairs of subtrees of a given type that are the same, and $\#totalPairs$ is the total number of pairwise comparisons made
-for a given type of node.
+for a given type of node. Note that this will also give a score of at most 1, as there will be at least as many total pairs of statements
+as equal pairs of statements.
 
 \paragraph{All Pairs Weighted Heuristic}
 
@@ -134,29 +146,13 @@ within a Block Statement are penalized more heavily than equal comment strings. 
 of each pairwise equality check.
 
 \paragraph{Tree Edit Distance Heuristic}
-
-The first yet-to-be-implemented heuristic, the Tree Edit Distance Heuristic, will operate very similarly to the All Pairs
-Naive Heuristic. However, instead of checking whether two parse tree nodes are equal, this heuristic will employ tree edit
-distance to check the structural similarity of two nodes. Given two subtrees, the tree edit distance between these two
+We have not implemented a Tree Edit Distance heuristic as originally proposed, given the complexity of implementing such a heuristic. Given two subtrees, the tree edit distance between these two
 trees is defined to be the number of insertions, deletions, or renaming of nodes in one tree such that the trees are
 identical\cite{TreeEditDistance}. Thus, a tree edit distance of 0 implies that the two trees are equal.
 
-The Tree Edit Distance heuristic will then compute tree edit distance for each pair of subtrees, and increase the DRYness score
-in a way that is inversely proportional to its tree edit distance. However, computing tree edit distance is relatively expensive,
-requiring $O(n^2)$ time for each call, where $n$ is the number of nodes in the largest tree \cite{TreeEditDistance}.
-
-\paragraph{Tree Edit Distance Weighted Heuristic}
-
-The Tree Edit Distance Weighted Heursitic, also yet-to-be-implemnted, will be exactly the same as the Tree Edit Distance Heuristic,
-except that we will assign weights (similar to the All Pairs Weighted Heuristic) to each type of parse tree node.
-
-\paragraph{Baker Heuristic}
-
-The Baker Heuristic will be based off of a proposed heuristic for measuring program ``volume'' proposed
-by Baker et. al.\cite{Modularity1979}. As described above, this heuristic indirectly computes DRYness by way of counting the
-number of logical operands and operators within a program. Unlike the previous heuristics, this is a heuristic based on
-lexical similarity instead of structural similarity. We plan to compare the results of this heuristic to our other six
-heuristics to determine how well a simple lexical heuristic performs relative to the others.
+We were not able implement this heuristic for two reasons. First, this heuristic is not well-defined for subtrees that are not of the same type: for example, we cannot compute the tree edit 
+distance between an if statement and a comment. Second, this heuristic involves writing a rather involved algorithm if we were to compute tree edit distance efficiently, which we determined to be outside the scope of this paper. We do, however, propose to implement
+such a heuristic in a successive rendition of this paper.
 
 \section{Results}
 
@@ -214,15 +210,27 @@ expected DRYness output.}
 \label{fig:dry}
 \end{figure}
 
-\section{Conclusion}
+\section{Conclusion and Future Work}
 
 Evaluating the DRYness of a program or its degree of modularity is currently considered to be an unsolved problem,
 even though there has been a lot of research on a similar aspect of program similarity -- that is, examining two
 different programs for plagiarism detection. Similar to a couple of earlier heuristics, our heuristics involve
 computing the structural similarity of a Java program by examining the similarity between subtrees of a given Java parse tree. 
-We have compared these heuristics against each other, and found that the heuristics compute a measure of DRYness to a 
-somewhat accurate extent. More research must still be done however in order to
-improve and optimize the given heuristics, and argue subjectively why they are decent.
+We have compared these heuristics against each other, and concluded that the heuristics compute a measure of DRYness to a 
+somewhat accurate extent. In particular, we have found that the All Pairs heuristics tend to outperform the Modified Baker Heuristic
+and the Iteration 1 Heuristic. However, we have also seen how our heuristics can perform poorly on larger Java files, such as our
+own implementation files. Many correction factors can be implemented, and more work must be done to verify which corrections
+perform most optimally.
+
+In addition to modifying these heuristics, there is still much work to be done before any DRYness heuristics can be deemed objectively
+accurate. First, as noted above, we have tested our heuristics on only 13 Java files, which might have given us skewed results. A more
+comprehensive evaluation of our metrics must include testing them on a plethora (possibly hundreds) of Java files, to verify whether
+the general trends we observed hold for more general Java programs. Second, we would like to see whether a Tree Edit Distance heuristic
+gives us more accurate results than any of our implemented heuristics. We hypothesize this will be the case, but as stated above, 
+implementing a Tree Edit Distance heuristic is a relatively hard endeavor. Third, we would like to observe the performance of our
+heuristic on student assignments, to see whether student grades are correlated with the modularity of their implementations. This would not only give us more Java files with which to test our heuristics, but would also start to give us an idea on whether
+the DRYness metrics we computed could be implemented in practice. These facts, along with the partial success of our heuristics, is why
+we consider the problem of determining how much a programmer follows the ``Don't Repeat Yourself'' principle to still be open.
 
 \section{Acknowledgements}
 

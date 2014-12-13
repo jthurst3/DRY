@@ -3,13 +3,14 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: report.aux
 The style file: plain.bst
 Database file #1: report.bib
+Warning--I didn't find a database entry for "Baker1979"
 Warning--to sort, need author or key in WETness
 Warning--to sort, need author or key in Javaparser
 Warning--empty journal in TreeEditDistance
 Warning--empty booktitle in LogicalModularity
 You've used 11 entries,
             2118 wiz_defined-function locations,
-            569 strings with 5589 characters,
+            571 strings with 5607 characters,
 and the built_in function-call counts, 3146 in all, are:
 = -- 302
 > -- 116
@@ -48,4 +49,4 @@ warning$ -- 4
 while$ -- 26
 width$ -- 13
 write$ -- 115
-(There were 4 warnings)
+(There were 5 warnings)

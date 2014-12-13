@@ -9,13 +9,6 @@ Writeup
 		Clarify how I'm computing dryness score
 	Baker Heuristic -- explain modified version and cite Baker's paper
 	Explain why tree edit distance heuristic is hard to compute and not well-defined
-	Results
-		This is where specific results go, like scores and computations
-	Conclusions (and Future Work)
-		This is where abstract conclusions go, like how successful we were and how this relates to the overall "modularity" conversation
-		future work suggestions:
-			tree edit distance heuristic, defining it, and implementing it recursively
-			testing on students' submissions for an assignment, and possibly making it available to amateur programmers
 Presentation
 	Slides
 	Practice talk
