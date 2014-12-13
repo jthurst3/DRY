@@ -160,14 +160,59 @@ heuristics to determine how well a simple lexical heuristic performs relative to
 
 \section{Results}
 
-Our results are contained within \texttt{results.csv}. Here, we can see that the Iteration 1 Heuristic outputs DRYness scores
-that are significantly higher for sample programs that are wet, which is to be expected. We see that the All Pairs
-heuristics also have this property, although the DRYness scores for all sample files are very close to 0 (mostly less than 0.1).
-As expected, the All Pairs Weighted Heuristic gives values closer to 1 than the All Pairs Naive Heuristic for wet Java files.
+Our results are shown in Figures \ref{fig:test} and \ref{fig:dry}. In Figure \ref{fig:test}, we graph the DRYness score for each of the five heuristics we implemented, relative to the seven example files we wrote. For Figure \ref{fig:test}, we graph
+the DRYness score for each of the heuristics against our six Java files that we implemented for computing DRYness. We decided to
+graph our heuristics against our implementation itself because we wanted to see how well the DRYness heuristics worked on larger
+files, and because we wanted to get a somewhat objective measurement on how modular our own code was.
 
-Further results and analysis will be discussed once the other three heuristics are implemented and tested. We also plan to
-provide an in-depth discussion of the consequences of our results and ideas for future lines of research. For now however,
-we can conclude that the given heuristics compute DRYness to a somewhat accurate level.
+\paragraph{Modified Baker Heuristic}
+Throughout both figures, we notice that the Modified Baker Heuristic tends to significantly give poorer ratings to Java files
+than our other heuristics. This is especially true in larger Java files, most notably those of our own implementation. We can attribute this to the definition we used for the Modified Baker Heuristic: one minus the ratio of the total number of distinct operator and operand types and the total number of operators and operands.
+Since there are a relatively small number of types of operators and operands, it makes sense that larger files will tend to repeat
+operators and operands throughout the file. We can therefore see that our modified version of the heuristic presented in \cite{Baker1979}
+may not be a good heuristic for evaluating the DRYness of files themselves. We suggest modifying this heuristic to account for the length
+of the file in future work, so as to not bias the results for larger files.
+
+\paragraph{Iteration 1 Heuristic}
+We can see in Figure \ref{fig:test} that the Iteration 1 Heuristic generally gives poorer ratings to our sample files than the All Pairs Heuristics, and in Figure \ref{fig:dry} that this heuristic gives better ratings to our files than the All Pairs Heuristics. Furthermore, this heuristic
+does not notice a stark difference between the two versions of DoubleFor and Factorial, and only notices a significant difference with the HelloWorld files. We can attribute this to this heuristic only checking for equality of block statements, and not other types of statements.
+As somewhat rightly named, this heuristic was our first iteration at measuring DRYness, and we can conclude that the heuristic misses
+some important differences between files.
+
+\paragraph{All Pairs Naive Heuristic}
+The All Pairs Naive Heuristic also shows a difference in results between larger files and smaller files. In Figure \ref{fig:test}, we
+can see that the heuristic generally gives better ratings than the All Pairs Weighted Heuristic, and in Figure \ref{fig:dry}, the opposite happens. We did not expect to see this contrast between different lengths of files, and are still trying to deduce a definitive answer as to why this happens. One possible explanation is that with larger files, the proportion of pairs of statements that are exactly
+equal is relatively low, whereas the opposite is the case for smaller files. The difference between this heuristic's evaluations of pairs of DRY-WET example files is rather alarming, as it does not detect a significant difference in modularity. This is partially why we
+created the weighted version of this heuristic.
+
+\paragraph{All Pairs Weighted Heuristic}
+For the seven example files, we can see that the All Pairs Weighted Heuristic detects a large difference between the HelloWorld and the DoubleFor pairs of files, but not the Factorial pair. Quite shockingly, this heuristic weights the FactorialWet file as more DRY than the Factorial file! We can partially attribute this to the way these three pairs of files are structured, with the FactorialWet file having more subtle repetitive differences than the other two WET files.
+
+Similar to the All Pairs Naive Heuristic, this heuristic generally rates Java files as DRY -- i.e. the heuristic gives low DRYness scores.
+We do not think the exact weights used in the implementation of this heuristic account for this trend, but rather think that a
+correction factor should be created, that accounts for the length of the Java file. This way, the All Pairs Weighted Heuristic can
+more thoroughly detect the difference between large DRY Java files and large WET Java files. We have not, however, come up with 
+such a correction factor that may help, as there are many possible corrections that can be performed. Implementing these correction
+factors is a subject for future research.
+
+
+% results for the 7 test files
+% templated from Joe's sample LaTeX file given in Assignment 8
+\begin{figure}
+\centering
+\includegraphics[clip=true, trim=0.75in 2.5in 0in 2.5in, width=3.5in]{../testPlot.pdf}
+\caption{Results for the five heuristics on the seven simple test Java files. Files are ordered in increasing order of 
+expected DRYness output.}
+\label{fig:test}
+\end{figure}
+% results for our files
+\begin{figure}
+\centering
+\includegraphics[clip=true, trim=0.75in 2.5in 0in 2.5in, width=3.5in]{../dryPlot.pdf}
+\caption{Results for the five heuristics on our six implementation files. Files are ordered in increasing order of 
+expected DRYness output.}
+\label{fig:dry}
+\end{figure}
 
 \section{Conclusion}
 

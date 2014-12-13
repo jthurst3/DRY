@@ -1,11 +1,5 @@
-Write more test files
 Lint code
 Writeup
-	Introduction
-		Who came up with DRY?
-		Can you cite?
-	Related work
-		Cite other related work
 	Design and implementation: DRYness score and setup
 		explain how our program can fail at computing a DRYness score
 	Heuristics: Iteration 1 Heuristic
@@ -13,23 +7,15 @@ Writeup
 		Specify to what extent DRYness score increases if two block statements are equal
 	Heuristics: All Pairs Native Heuristic
 		Clarify how I'm computing dryness score
-	Heuristics: All Pairs Weighted Heuristic -- fix circled typo
 	Baker Heuristic -- explain modified version and cite Baker's paper
 	Explain why tree edit distance heuristic is hard to compute and not well-defined
 	Results
-		Add graph/figures showing DRYness results
 		This is where specific results go, like scores and computations
 	Conclusions (and Future Work)
-		Fix circled typo
 		This is where abstract conclusions go, like how successful we were and how this relates to the overall "modularity" conversation
 		future work suggestions:
 			tree edit distance heuristic, defining it, and implementing it recursively
 			testing on students' submissions for an assignment, and possibly making it available to amateur programmers
-	Acknowledgements
-		fix spelling of Joe's name
-		thank the people who end up proofreading my final version
-	Move implementation stuff to README
-	Bibliography -- delete URLs for everything except websites/miscellaneous
 Presentation
 	Slides
 	Practice talk
