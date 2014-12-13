@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.6-1.40.14 (TeX Live 2014/dev) (format=pdflatex 2014.7.16)  3 DEC 2014 23:53
+This is pdfTeX, Version 3.1415926-2.6-1.40.14 (TeX Live 2014/dev) (format=pdflatex 2014.7.16)  12 DEC 2014 22:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -261,185 +261,32 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 {/usr/share/texlive/texmf-dist/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4]
  [5] [6]
 (./report.bbl
-Underfull \hbox (badness 10000) in paragraph at lines 15--21
-\OT1/cmtt/m/n/10 Z39 . 88-[]2004&ctx _ enc = info % 3Aofi % 2Fenc % 3AUTF-[]8&r
-fr _ id = info :
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 15--21
-\OT1/cmtt/m/n/10 sid / summon . serialssolutions . com&rft _ val _ fmt = info :
- ofi / fmt :
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 15--21
-\OT1/cmtt/m/n/10 kev : mtx : journal&rft . genre = article&rft . atitle = The +
- Use + of +
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 15--21
-\OT1/cmtt/m/n/10 Software + Science + in + Evaluating + Modularity + Concepts&r
-ft . jtitle =
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 15--21
-\OT1/cmtt/m/n/10 IEEE + Transactions + on + Software + Engineering&rft . au = B
-aker % 2C + A .
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 15--21
-\OT1/cmtt/m/n/10 L&rft . au = Zweben % 2C + S . H&rft . date = 1979&rft . pub =
- IEEE&rft . issn =
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 15--21
-\OT1/cmtt/m/n/10 0098-[]5589&rft . volume = SE-[]5&rft . issue = 2&rft . spage 
-= 110&rft .
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 15--21
-\OT1/cmtt/m/n/10 epage = 120&rft _ id = info : doi / 10 . 1109 % 2FTSE . 1979 .
- 234167&rft .
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 23--28
-\OT1/cmtt/m/n/10 ver = Z39 . 88-[]2004&ctx _ enc = info % 3Aofi % 2Fenc % 3AUTF
--[]8&rfr _ id = info :
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 23--28
-\OT1/cmtt/m/n/10 sid / summon . serialssolutions . com&rft _ val _ fmt = info :
- ofi / fmt : kev :
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 23--28
-\OT1/cmtt/m/n/10 mtx : journal&rft . genre = article&rft . atitle = No + Silver
- + Bullet +
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 23--28
-\OT1/cmtt/m/n/10 Essence + and + Accidents + of + Software + Engineering&rft . 
-jtitle =
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 23--28
-\OT1/cmtt/m/n/10 Computer&rft . au = Brooks&rft . date = 1987&rft . pub = IEEE&
-rft . issn =
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 23--28
-\OT1/cmtt/m/n/10 0018-[]9162&rft . eissn = 1558-[]0814&rft . volume = 20&rft . 
-issue = 4&rft .
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 23--28
-\OT1/cmtt/m/n/10 spage = 10&rft . epage = 19&rft _ id = info : doi / 10 . 1109 
-% 2FMC . 1987 .
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 36--41
-\OT1/cmtt/m/n/10 Z39 . 88-[]2004&ctx _ enc = info % 3Aofi % 2Fenc % 3AUTF-[]8&r
-fr _ id = info :
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 36--41
-\OT1/cmtt/m/n/10 sid / summon . serialssolutions . com&rft _ val _ fmt = info :
- ofi / fmt :
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 36--41
-\OT1/cmtt/m/n/10 kev : mtx : book&rft . genre = proceeding&rft . title = 2009 +
- 16th +
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 36--41
-\OT1/cmtt/m/n/10 Working + Conference + on + Reverse + Engineering&rft . atitle
- = The +
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 36--41
-\OT1/cmtt/m/n/10 Logical + Modularity + of + Programs&rft . au = Ratiu % 2C + D
-&rft . au =
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 36--41
-\OT1/cmtt/m/n/10 Marinescu % 2C + R&rft . au = Jurjens % 2C + J&rft . date = 20
-09-[]01-[]01&rft .
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 36--41
-\OT1/cmtt/m/n/10 isbn = 0769538673&rft . issn = 1095-[]1350&rft . spage = 123&r
-ft . epage =
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 36--41
-\OT1/cmtt/m/n/10 127&rft _ id = info : doi / 10 . 1109 % 2FWCRE . 2009 . 29&rft
- . externalDocID =
- []
-
-
-Underfull \hbox (badness 5548) in paragraph at lines 43--48
-\OT1/cmr/m/it/10 COM-PUTER JOUR-NAL\OT1/cmr/m/n/10 , 33(2):140--146, 1990.  $\O
-T1/cmtt/m/n/10 http : / / gateway .
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 43--48
-\OT1/cmtt/m/n/10 webofknowledge . com / gateway / Gateway . cgi ? GWVersion = 2
- \ &SrcAuth =
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 43--48
-\OT1/cmtt/m/n/10 SerialsSolutions \ &SrcApp = Summon \ &KeyUT = A1990CZ98300007
- \
- []
-
-[7]) [8] (./report.aux) ) 
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no © in font cmr10!
+) [7] (./report.aux) ) 
 Here is how much of TeX's memory you used:
- 3076 strings out of 494999
- 42348 string characters out of 6180801
- 104830 words of memory out of 5000000
- 6237 multiletter control sequences out of 15000+600000
+ 3080 strings out of 494999
+ 42422 string characters out of 6180801
+ 101844 words of memory out of 5000000
+ 6241 multiletter control sequences out of 15000+600000
  12624 words of font info for 49 fonts, out of 8000000 for 9000
  34 hyphenation exceptions out of 8191
- 37i,6n,26p,600b,268s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx
-9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmtt10.pfb>
-Output written on report.pdf (8 pages, 167589 bytes).
+ 37i,6n,26p,524b,258s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.p
+fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></u
+sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmtt10.pfb>
+Output written on report.pdf (7 pages, 161181 bytes).
 PDF statistics:
- 75 PDF objects out of 1000 (max. 8388607)
- 53 compressed objects within 1 object stream
+ 72 PDF objects out of 1000 (max. 8388607)
+ 51 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -20,8 +20,15 @@ similarity between two programs. We show how these heuristics lay the foundation
 
 \end{abstract}
 
-\section{Introduction} DRY, or ``Don't Repeat Yourself'', is a programming ideal and standard that urges programmers to avoid duplicating code or structures of code in order to make programming more efficient and readable. Following DRY means writing more modular
-code, which by definition means separating each part of a program into different pieces, each piece solving a specific sub-problem. As stated by Frederick Brooks in an article
+\section{Introduction} DRY, or ``Don't Repeat Yourself'', is a programming ideal and standard that urges programmers to avoid 
+duplicating code or structures of code in order to make programming more efficient and readable. It was first formulated by Andrew Hunt
+ and David Thomas in 1999 in their book ``The Pragmatic Programmer'', in which they state that ``every piece of knowledge must have a 
+ single, unambiguous, authoritative representation within a system''~\cite{PragmaticProgrammer}. Following DRY means writing more modular
+code, which by definition means separating each part of a program into different pieces, each piece solving a specific sub-problem.
+A program that does not follow the DRY principle is termed WET, which some have satirically expanded as ``write everything twice''
+ and ``we enjoy typing''~\cite{WETness}.
+
+As stated by Frederick Brooks in an article
 from April 1987\cite{NoSilverBullet}, software engineering will always face four essential difficulties: complexity, conformity, 
 changeability, and invisibility. Following DRY can help alleviate the troubles of complexity and changeability since breaking up code
 into small pieces makes it easier to understand, and changing code that is already modular is almost by definition easy.
@@ -55,7 +62,7 @@ have been implemented before. Joy, Joy, and Luck \cite{PlagiarismProgrammingAssi
 detect similarity with an incremental comparison method, whereby they study different possible modifications of two programs.
 Whale \cite{ProgramSimilarityPopulations} takes a slightly different approach, whereby he counts the number of occurrences of certain attributes of programs (such as the number of unique operators and operands), and combines this metric with a similarity measure over optimized versions of code at runtime. Similar to \cite{Modularity1979}, these approaches involve counting the occurrences of certain attributes within programs, such as logical operators, operands, and keywords.
 
-Much of the other related work we have found centers on two different ideas for detecting similarity or modularity
+Much of the other related work\cite{McGahn1995,GraphSimilarityStudentPrograms} we have found centers on two different ideas for detecting similarity or modularity
 (one of which was just described): counting occurrences
 of certain attributes and detecting similarity of parse trees. Counting occurrences of certain attributes is relatively easy, as we can
 determine these counts by a single pass through a program. Moreover, many people have found this approach to detect similarity 
@@ -72,30 +79,20 @@ for determining similarity\cite{ProgramSimilarityPopulations}\cite{PlagiarismPro
 \subsection{DRYness score and setup}
 
 We will define the DRYness score of a program to be in the range $[0,1]$. A DRYness score close to 0 means the program is ``very dry'',
-and a score near 1 means the program is ``very wet'', i.e. repetitive. (For implementation purposes, a DRYness score of -1 means the
-program does not compile, or our heuristic could not compute the DRYness score).
+and a score near 1 means the program is ``very wet'', i.e. repetitive. A DRYness score of -1 means the Java program does not compile.
 
 Our DRYness score is computed using Java, meaning that our heuristics only work on Java files. However, similar heuristics could 
 be used to detect DRYness for most other programming languages. We chose to implement our heuristics for Java files since Java 
 is a popular programming language among amateur programmers, and we found a convenient external library to lexically analyze and parse
 Java files efficiently \cite{Javaparser}.
 
-Our Java program is defined in \texttt{DRY.java}, and takes command-line arguments specifying which DRYness heuristic to use
-and which Java file to test. It also takes an optional argument that allows one to print out the result in verbose mode.
-
-Our heuristics are defined in the files \texttt{*Heuristic.java}, and implement the \texttt{GenericVisitor} class of Javaparser, 
-which visits each subtree of the test file's Java parse tree in pre-order. We use the Bash script \texttt{testScript.sh} to run
-\texttt{DRY.java} on each test file and each heuristic. Our results are contained within the \texttt{results.csv} file.
-
 \subsection{Test dataset}
 
 We compute the DRYness heuristics (described below) on seven different test Java files, which we feel captures the basic properties
-of DRYness somewhat well. We also test our heuristics on our own Java programs, to give us some insight on how well our DRYness
-program is in itself modular. The seven different test files are located in the \texttt{samples/} directory. Of these seven files, one contains an empty Java class, which helps to test whether our heuristics are well-defined. The other six are written in pairs,
-such that one Java file of the pair is a wetter version of the other. For example, \texttt{HelloWorld.java} contains a for loop
-that prints ``Hello world!'' ten times, and \texttt{HelloWorldWet.java} contains ten successive statements, each printing
-``Hello World!''. We thus expect the wet versions of the pair to have a DRYness score close to 1, and the dry versions of the pair
-to output a score close to 0. Therefore, by testing whether our heuristics return relevant values on these pairs of files,
+of DRYness somewhat well. Of these seven test files, one consists of an empty class (for a baseline measurement), and the other six are paired,
+three of which are simple, modular programs; and three of which are WET versions of the modular programs. We thus expect the wet versions of the pair to have a DRYness score close to 1, and the dry versions of the pair
+to output a score close to 0. We also test our heuristics on our own Java programs, to give us some insight on how well our DRYness
+program is in itself modular. By testing whether our heuristics return relevant values on these pairs of files,
 we can somewhat objectively evaluate the success of our heuristics.
 
 \subsection{Heuristics}
@@ -107,7 +104,7 @@ for which we give brief descriptions of how they will operate, but no results.
 
 \paragraph{Iteration 1 Heuristic}
 
-The first non-trivial heuristic is defined in \\\texttt{Iteration1Heuristic.java}. This heuristic defins DRYness recursively, 
+The Iteration 1 Heuristic defins DRYness recursively, 
 starting from the root node of a program's parse tree. For the heuristic to be well-defined, we must define the DRYness score of
 each type of parse tree node, and output a number between 0 and 1. For example, our definition of the DRYness score of an if statement
 will be defined differently than the DRYness score of a variable assignment statement. Thus, for each type of parse tree node,
@@ -118,7 +115,7 @@ heuristic increases the DRYness score by a small amount.
 
 \paragraph{All Pairs Naive Heuristic}
 
-The second non-trivial heuristic, the All Pairs Naive Heuristic, is defined in \texttt{AllPairsNaiveHeuristic.java}. 
+The second non-trivial heuristic, the All Pairs Naive Heuristic, computes DRYness iteratively. 
 For each parse tree node that the heuristic visits, it first adds the node and its contents to an \texttt{ArrayList} of other similar
 parse tree nodes. This means that after visiting all nodes in a parse tree, the heuristic has a sequence of \texttt{ArrayList}s
 in memory, with each \texttt{ArrayList} comprising all subtrees of a given type. The heuristic then compares the elements of each
@@ -130,8 +127,8 @@ for a given type of node.
 
 \paragraph{All Pairs Weighted Heuristic}
 
-The third non-trivial heuristic, the All Pairs Weighted Heuristic, is defined in \texttt{AllPairsWeightedHeuristic.java}.
-Similar to the All Pairs Naive Heuristic, this heursitic compares parse tree nodes of a given type in pairs, checking for equality.
+The third non-trivial heuristic, the All Pairs Weighted Heuristic, is a slightly modified version of the All Pairs Naive Heuristic.
+Similar to the All Pairs Naive Heuristic, this heuristic compares parse tree nodes of a given type in pairs, checking for equality.
 However, the All Pairs Weighted Heuristic weights each type of equality check differently, so that, for example, equal statements
 within a Block Statement are penalized more heavily than equal comment strings. It thus returns a weighted average of the result
 of each pairwise equality check.
@@ -176,7 +173,7 @@ we can conclude that the given heuristics compute DRYness to a somewhat accurate
 
 Evaluating the DRYness of a program or its degree of modularity is currently considered to be an unsolved problem,
 even though there has been a lot of research on a similar aspect of program similarity -- that is, examining two
-different programs for plagiarism detection. Similar to a couple of earlier heursitics, our heuristics involve
+different programs for plagiarism detection. Similar to a couple of earlier heuristics, our heuristics involve
 computing the structural similarity of a Java program by examining the similarity between subtrees of a given Java parse tree. 
 We have compared these heuristics against each other, and found that the heuristics compute a measure of DRYness to a 
 somewhat accurate extent. More research must still be done however in order to
@@ -184,7 +181,7 @@ improve and optimize the given heuristics, and argue subjectively why they are d
 
 \section{Acknowledgements}
 
-The author is deeply indebted to Chen Ding and Joe Izralevitz for their support, suggestions, and guidance over the past two months.
+The author is deeply indebted to Chen Ding and Joe Izraelevitz for their support, suggestions, and guidance over the past two months.
 The author would also like to thank Victor Liu, Jacob Bisnett, Ben O'Halloran, Evan McLaughlin, Brandon Allard, and the rest of
 the CSC200 student body for their recommendations, and Tyler Hannan for his help with Java generics, Unicode support issues, and
 visitor patterns.
