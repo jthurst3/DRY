@@ -119,169 +119,169 @@ import java.util.ArrayList;
 public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     // lists of expressions are stored here
-    static ArrayList<AnnotationDeclaration> annotationDeclarations;
-    static ArrayList<AnnotationMemberDeclaration> annotationMemberDeclarations;
-    static ArrayList<ArrayAccessExpr> arrayAccessExprs;
-    static ArrayList<ArrayCreationExpr> arrayCreationExprs;
-    static ArrayList<ArrayInitializerExpr> arrayInitializerExprs;
-    static ArrayList<AssertStmt> assertStmts;
-    static ArrayList<AssignExpr> assignExprs;
-    static ArrayList<BinaryExpr> binaryExprs;
-    static ArrayList<BlockStmt> blockStmts;
-    static ArrayList<BooleanLiteralExpr> booleanLiteralExprs;
-    static ArrayList<BreakStmt> breakStmts;
-    static ArrayList<CastExpr> castExprs;
-    static ArrayList<CatchClause> catchClauses;
-    static ArrayList<CharLiteralExpr> charLiteralExprs;
-    static ArrayList<ClassExpr> classExprs;
-    static ArrayList<ClassOrInterfaceDeclaration> classOrInterfaceDeclarations;
-    static ArrayList<ClassOrInterfaceType> classOrInterfaceTypes;
-    static ArrayList<CompilationUnit> compilationUnits;
-    static ArrayList<ConditionalExpr> conditionalExprs;
-    static ArrayList<ConstructorDeclaration> constructorDeclarations;
-    static ArrayList<ContinueStmt> continueStmts;
-    static ArrayList<DoStmt> doStmts;
-    static ArrayList<DoubleLiteralExpr> doubleLiteralExprs;
-    static ArrayList<EmptyMemberDeclaration> emptyMemberDeclarations;
-    static ArrayList<EmptyStmt> emptyStmts;
-    static ArrayList<EmptyTypeDeclaration> emptyTypeDeclarations;
-    static ArrayList<EnclosedExpr> enclosedExprs;
-    static ArrayList<EnumConstantDeclaration> enumConstantDeclarations;
-    static ArrayList<EnumDeclaration> enumDeclarations;
-    static ArrayList<ExplicitConstructorInvocationStmt> explicitConstructorInvocationStmts;
-    static ArrayList<ExpressionStmt> expressionStmts;
-    static ArrayList<FieldAccessExpr> fieldAccessExprs;
-    static ArrayList<FieldDeclaration> fieldDeclarations;
-    static ArrayList<ForeachStmt> foreachStmts;
-    static ArrayList<ForStmt> forStmts;
-    static ArrayList<IfStmt> ifStmts;
-    static ArrayList<ImportDeclaration> importDeclarations;
-    static ArrayList<InitializerDeclaration> initializerDeclarations;
-    static ArrayList<InstanceOfExpr> instanceOfExprs;
-    static ArrayList<IntegerLiteralExpr> integerLiteralExprs;
-    static ArrayList<IntegerLiteralMinValueExpr> integerLiteralMinValueExprs;
-    static ArrayList<JavadocComment> javadocComments;
-    static ArrayList<LabeledStmt> labeledStmts;
-    static ArrayList<LongLiteralExpr> longLiteralExprs;
-    static ArrayList<LongLiteralMinValueExpr> longLiteralMinValueExprs;
-    static ArrayList<MarkerAnnotationExpr> markerAnnotationExprs;
-    static ArrayList<MemberValuePair> memberValuePairs;
-    static ArrayList<MethodCallExpr> methodCallExprs;
-    static ArrayList<MethodDeclaration> methodDeclarations;
-    static ArrayList<NameExpr> nameExprs;
-    static ArrayList<NormalAnnotationExpr> normalAnnotationExprs;
-    static ArrayList<NullLiteralExpr> nullLiteralExprs;
-    static ArrayList<ObjectCreationExpr> objectCreationExprs;
-    static ArrayList<PackageDeclaration> packageDeclarations;
-    static ArrayList<Parameter> parameters;
-    static ArrayList<PrimitiveType> primitiveTypes;
-    static ArrayList<QualifiedNameExpr> qualifiedNameExprs;
-    static ArrayList<ReferenceType> referenceTypes;
-    static ArrayList<ReturnStmt> returnStmts;
-    static ArrayList<SingleMemberAnnotationExpr> singleMemberAnnotationExprs;
-    static ArrayList<StringLiteralExpr> stringLiteralExprs;
-    static ArrayList<SuperExpr> superExprs;
-    static ArrayList<SwitchEntryStmt> switchEntryStmts;
-    static ArrayList<SwitchStmt> switchStmts;
-    static ArrayList<SynchronizedStmt> synchronizedStmts;
-    static ArrayList<ThisExpr> thisExprs;
-    static ArrayList<ThrowStmt> throwStmts;
-    static ArrayList<TryStmt> tryStmts;
-    static ArrayList<TypeDeclarationStmt> typeDeclarationStmts;
-    static ArrayList<TypeParameter> typeParameters;
-    static ArrayList<UnaryExpr> unaryExprs;
-    static ArrayList<VariableDeclarationExpr> variableDeclarationExprs;
-    static ArrayList<VariableDeclarator> variableDeclarators;
-    static ArrayList<VariableDeclaratorId> variableDeclaratorIds;
-    static ArrayList<VoidType> voidTypes;
-    static ArrayList<WhileStmt> whileStmts;
-    static ArrayList<WildcardType> wildcardTypes;
-    static ArrayList<BlockComment> blockComments;
-    static ArrayList<LineComment> lineComments;
+    static int annotationDeclarationCount;
+    static int annotationMemberDeclarationCount;
+    static int arrayAccessExprCount;
+    static int arrayCreationExprCount;
+    static int arrayInitializerExprCount;
+    static int assertStmtCount;
+    static int assignExprCount;
+    static int binaryExprCount;
+    static int blockStmtCount;
+    static int booleanLiteralExprCount;
+    static int breakStmtCount;
+    static int castExprCount;
+    static int catchClauseCount;
+    static int charLiteralExprCount;
+    static int classExprCount;
+    static int classOrInterfaceDeclarationCount;
+    static int classOrInterfaceTypeCount;
+    static int compilationUnitCount;
+    static int conditionalExprCount;
+    static int constructorDeclarationCount;
+    static int continueStmtCount;
+    static int doStmtCount;
+    static int doubleLiteralExprCount;
+    static int emptyMemberDeclarationCount;
+    static int emptyStmtCount;
+    static int emptyTypeDeclarationCount;
+    static int enclosedExprCount;
+    static int enumConstantDeclarationCount;
+    static int enumDeclarationCount;
+    static int explicitConstructorInvocationStmtCount;
+    static int expressionStmtCount;
+    static int fieldAccessExprCount;
+    static int fieldDeclarationCount;
+    static int foreachStmtCount;
+    static int forStmtCount;
+    static int ifStmtCount;
+    static int importDeclarationCount;
+    static int initializerDeclarationCount;
+    static int instanceOfExprCount;
+    static int integerLiteralExprCount;
+    static int integerLiteralMinValueExprCount;
+    static int javadocCommentCount;
+    static int labeledStmtCount;
+    static int longLiteralExprCount;
+    static int longLiteralMinValueExprCount;
+    static int markerAnnotationExprCount;
+    static int memberValuePairCount;
+    static int methodCallExprCount;
+    static int methodDeclarationCount;
+    static int nameExprCount;
+    static int normalAnnotationExprCount;
+    static int nullLiteralExprCount;
+    static int objectCreationExprCount;
+    static int packageDeclarationCount;
+    static int parameterCount;
+    static int primitiveTypeCount;
+    static int qualifiedNameExprCount;
+    static int referenceTypeCount;
+    static int returnStmtCount;
+    static int singleMemberAnnotationExprCount;
+    static int stringLiteralExprCount;
+    static int superExprCount;
+    static int switchEntryStmtCount;
+    static int switchStmtCount;
+    static int synchronizedStmtCount;
+    static int thisExprCount;
+    static int throwStmtCount;
+    static int tryStmtCount;
+    static int typeDeclarationStmtCount;
+    static int typeParameterCount;
+    static int unaryExprCount;
+    static int variableDeclarationExprCount;
+    static int variableDeclaratorCount;
+    static int variableDeclaratorIdCount;
+    static int voidTypeCount;
+    static int whileStmtCount;
+    static int wildcardTypeCount;
+    static int blockCommentCount;
+    static int lineCommentCount;
 
     boolean comments = false;
     public ModifiedBakerHeuristic(boolean comments) {
         this.comments = comments;
-        // initialize pairwise variables
-        annotationDeclarations = new ArrayList<AnnotationDeclaration>();
-        annotationMemberDeclarations = new ArrayList<AnnotationMemberDeclaration>();
-        arrayAccessExprs = new ArrayList<ArrayAccessExpr>();
-        arrayCreationExprs = new ArrayList<ArrayCreationExpr>();
-        arrayInitializerExprs = new ArrayList<ArrayInitializerExpr>();
-        assertStmts = new ArrayList<AssertStmt>();
-        assignExprs = new ArrayList<AssignExpr>();
-        binaryExprs = new ArrayList<BinaryExpr>();
-        blockStmts = new ArrayList<BlockStmt>();
-        booleanLiteralExprs = new ArrayList<BooleanLiteralExpr>();
-        breakStmts = new ArrayList<BreakStmt>();
-        castExprs = new ArrayList<CastExpr>();
-        catchClauses = new ArrayList<CatchClause>();
-        charLiteralExprs = new ArrayList<CharLiteralExpr>();
-        classExprs = new ArrayList<ClassExpr>();
-        classOrInterfaceDeclarations = new ArrayList<ClassOrInterfaceDeclaration>();
-        classOrInterfaceTypes = new ArrayList<ClassOrInterfaceType>();
-        compilationUnits = new ArrayList<CompilationUnit>();
-        conditionalExprs = new ArrayList<ConditionalExpr>();
-        constructorDeclarations = new ArrayList<ConstructorDeclaration>();
-        continueStmts = new ArrayList<ContinueStmt>();
-        doStmts = new ArrayList<DoStmt>();
-        doubleLiteralExprs = new ArrayList<DoubleLiteralExpr>();
-        emptyMemberDeclarations = new ArrayList<EmptyMemberDeclaration>();
-        emptyStmts = new ArrayList<EmptyStmt>();
-        emptyTypeDeclarations = new ArrayList<EmptyTypeDeclaration>();
-        enclosedExprs = new ArrayList<EnclosedExpr>();
-        enumConstantDeclarations = new ArrayList<EnumConstantDeclaration>();
-        enumDeclarations = new ArrayList<EnumDeclaration>();
-        explicitConstructorInvocationStmts = new ArrayList<ExplicitConstructorInvocationStmt>();
-        expressionStmts = new ArrayList<ExpressionStmt>();
-        fieldAccessExprs = new ArrayList<FieldAccessExpr>();
-        fieldDeclarations = new ArrayList<FieldDeclaration>();
-        foreachStmts = new ArrayList<ForeachStmt>();
-        forStmts = new ArrayList<ForStmt>();
-        ifStmts = new ArrayList<IfStmt>();
-        importDeclarations = new ArrayList<ImportDeclaration>();
-        initializerDeclarations = new ArrayList<InitializerDeclaration>();
-        instanceOfExprs = new ArrayList<InstanceOfExpr>();
-        integerLiteralExprs = new ArrayList<IntegerLiteralExpr>();
-        integerLiteralMinValueExprs = new ArrayList<IntegerLiteralMinValueExpr>();
-        javadocComments = new ArrayList<JavadocComment>();
-        labeledStmts = new ArrayList<LabeledStmt>();
-        longLiteralExprs = new ArrayList<LongLiteralExpr>();
-        longLiteralMinValueExprs = new ArrayList<LongLiteralMinValueExpr>();
-        markerAnnotationExprs = new ArrayList<MarkerAnnotationExpr>();
-        memberValuePairs = new ArrayList<MemberValuePair>();
-        methodCallExprs = new ArrayList<MethodCallExpr>();
-        methodDeclarations = new ArrayList<MethodDeclaration>();
-        nameExprs = new ArrayList<NameExpr>();
-        normalAnnotationExprs = new ArrayList<NormalAnnotationExpr>();
-        nullLiteralExprs = new ArrayList<NullLiteralExpr>();
-        objectCreationExprs = new ArrayList<ObjectCreationExpr>();
-        packageDeclarations = new ArrayList<PackageDeclaration>();
-        parameters = new ArrayList<Parameter>();
-        primitiveTypes = new ArrayList<PrimitiveType>();
-        qualifiedNameExprs = new ArrayList<QualifiedNameExpr>();
-        referenceTypes = new ArrayList<ReferenceType>();
-        returnStmts = new ArrayList<ReturnStmt>();
-        singleMemberAnnotationExprs = new ArrayList<SingleMemberAnnotationExpr>();
-        stringLiteralExprs = new ArrayList<StringLiteralExpr>();
-        superExprs = new ArrayList<SuperExpr>();
-        switchEntryStmts = new ArrayList<SwitchEntryStmt>();
-        switchStmts = new ArrayList<SwitchStmt>();
-        synchronizedStmts = new ArrayList<SynchronizedStmt>();
-        thisExprs = new ArrayList<ThisExpr>();
-        throwStmts = new ArrayList<ThrowStmt>();
-        tryStmts = new ArrayList<TryStmt>();
-        typeDeclarationStmts = new ArrayList<TypeDeclarationStmt>();
-        typeParameters = new ArrayList<TypeParameter>();
-        unaryExprs = new ArrayList<UnaryExpr>();
-        variableDeclarationExprs = new ArrayList<VariableDeclarationExpr>();
-        variableDeclarators = new ArrayList<VariableDeclarator>();
-        variableDeclaratorIds = new ArrayList<VariableDeclaratorId>();
-        voidTypes = new ArrayList<VoidType>();
-        whileStmts = new ArrayList<WhileStmt>();
-        wildcardTypes = new ArrayList<WildcardType>();
-        blockComments = new ArrayList<BlockComment>();
-        lineComments = new ArrayList<LineComment>();
+        // initialize counts of each type of operator/operand
+        annotationDeclarationCount = 0;
+        annotationMemberDeclarationCount = 0;
+        arrayAccessExprCount = 0;
+        arrayCreationExprCount = 0;
+        arrayInitializerExprCount = 0;
+        assertStmtCount = 0;
+        assignExprCount = 0;
+        binaryExprCount = 0;
+        blockStmtCount = 0;
+        booleanLiteralExprCount = 0;
+        breakStmtCount = 0;
+        castExprCount = 0;
+        catchClauseCount = 0;
+        charLiteralExprCount = 0;
+        classExprCount = 0;
+        classOrInterfaceDeclarationCount = 0;
+        classOrInterfaceTypeCount = 0;
+        compilationUnitCount = 0;
+        conditionalExprCount = 0;
+        constructorDeclarationCount = 0;
+        continueStmtCount = 0;
+        doStmtCount = 0;
+        doubleLiteralExprCount = 0;
+        emptyMemberDeclarationCount = 0;
+        emptyStmtCount = 0;
+        emptyTypeDeclarationCount = 0;
+        enclosedExprCount = 0;
+        enumConstantDeclarationCount = 0;
+        enumDeclarationCount = 0;
+        explicitConstructorInvocationStmtCount = 0;
+        expressionStmtCount = 0;
+        fieldAccessExprCount = 0;
+        fieldDeclarationCount = 0;
+        foreachStmtCount = 0;
+        forStmtCount = 0;
+        ifStmtCount = 0;
+        importDeclarationCount = 0;
+        initializerDeclarationCount = 0;
+        instanceOfExprCount = 0;
+        integerLiteralExprCount = 0;
+        integerLiteralMinValueExprCount = 0;
+        javadocCommentCount = 0;
+        labeledStmtCount = 0;
+        longLiteralExprCount = 0;
+        longLiteralMinValueExprCount = 0;
+        markerAnnotationExprCount = 0;
+        memberValuePairCount = 0;
+        methodCallExprCount = 0;
+        methodDeclarationCount = 0;
+        nameExprCount = 0;
+        normalAnnotationExprCount = 0;
+        nullLiteralExprCount = 0;
+        objectCreationExprCount = 0;
+        packageDeclarationCount = 0;
+        parameterCount = 0;
+        primitiveTypeCount = 0;
+        qualifiedNameExprCount = 0;
+        referenceTypeCount = 0;
+        returnStmtCount = 0;
+        singleMemberAnnotationExprCount = 0;
+        stringLiteralExprCount = 0;
+        superExprCount = 0;
+        switchEntryStmtCount = 0;
+        switchStmtCount = 0;
+        synchronizedStmtCount = 0;
+        thisExprCount = 0;
+        throwStmtCount = 0;
+        tryStmtCount = 0;
+        typeDeclarationStmtCount = 0;
+        typeParameterCount = 0;
+        unaryExprCount = 0;
+        variableDeclarationExprCount = 0;
+        variableDeclaratorCount = 0;
+        variableDeclaratorIdCount = 0;
+        voidTypeCount = 0;
+        whileStmtCount = 0;
+        wildcardTypeCount = 0;
+        blockCommentCount = 0;
+        lineCommentCount = 0;
     }
     public ModifiedBakerHeuristic() {
         this(false);
@@ -292,122 +292,58 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
 
     // computes the pairwise dryness score from the ArrayList variables
-    public Double computePairwiseDrynessScore() {
-        Double result = 0D;
-        // go through each array list, and compute pairwise equalities
-        ArrayList[] arrayLists = new ArrayList[] {
-            annotationDeclarations,
-            annotationMemberDeclarations,
-            arrayAccessExprs,
-            arrayCreationExprs,
-            arrayInitializerExprs,
-            assertStmts,
-            assignExprs,
-            binaryExprs,
-            blockStmts,
-            booleanLiteralExprs,
-            breakStmts,
-            castExprs,
-            catchClauses,
-            charLiteralExprs,
-            classExprs,
-            classOrInterfaceDeclarations,
-            classOrInterfaceTypes,
-            compilationUnits,
-            conditionalExprs,
-            constructorDeclarations,
-            continueStmts,
-            doStmts,
-            doubleLiteralExprs,
-            emptyMemberDeclarations,
-            emptyStmts,
-            emptyTypeDeclarations,
-            enclosedExprs,
-            enumConstantDeclarations,
-            enumDeclarations,
-            explicitConstructorInvocationStmts,
-            expressionStmts,
-            fieldAccessExprs,
-            fieldDeclarations,
-            foreachStmts,
-            forStmts,
-            ifStmts,
-            importDeclarations,
-            initializerDeclarations,
-            instanceOfExprs,
-            integerLiteralExprs,
-            integerLiteralMinValueExprs,
-            javadocComments,
-            labeledStmts,
-            longLiteralExprs,
-            longLiteralMinValueExprs,
-            markerAnnotationExprs,
-            memberValuePairs,
-            methodCallExprs,
-            methodDeclarations,
-            nameExprs,
-            normalAnnotationExprs,
-            nullLiteralExprs,
-            objectCreationExprs,
-            packageDeclarations,
-            parameters,
-            primitiveTypes,
-            qualifiedNameExprs,
-            referenceTypes,
-            returnStmts,
-            singleMemberAnnotationExprs,
-            stringLiteralExprs,
-            superExprs,
-            switchEntryStmts,
-            switchStmts,
-            synchronizedStmts,
-            thisExprs,
-            throwStmts,
-            tryStmts,
-            typeDeclarationStmts,
-            typeParameters,
-            unaryExprs,
-            variableDeclarationExprs,
-            variableDeclarators,
-            variableDeclaratorIds,
-            voidTypes,
-            whileStmts,
-            wildcardTypes,
-            blockComments,
-            lineComments};
-        Double[] results = new Double[arrayLists.length];
-        for (int ls = 0; ls < arrayLists.length; ls++) {
-            // convert the list to an array
-            Node[] stmts = new Node[arrayLists[ls].size()];
-            arrayLists[ls].toArray(stmts);
-            // compare elements pairwise
-            Double equalityCounter = 0D;
-            int pairs = 0;
-            // Double dryValues = 0D;
-            int i = 0;
-            if (stmts != null) {
-                for (int s1 = 0; s1 < stmts.length; s1++) {
-                    // dryValues += stmts[s1].accept(this, null);
-                    i++;
-                    for (int s2 = 0; s2 < s1; s2++) {
-                        if (stmts[s1].equals(stmts[s2])) {
-                            equalityCounter = equalityCounter + 1;
-                        }
-                        pairs++;
-                    }
-                }
-            }
-            results[ls] = divide(equalityCounter,pairs);
-        }
-        result = average(results);
-        return result;
+    public Double computeBakerDrynessScore() {
+        // get the list of operator and operand nodes
+        // NOTE: since each type of parse tree node either
+        // represents one operator, one operand, or neither,
+        // we can just split the parse tree nodes into those
+        // that represent the operators, those that represent
+        // the operands, and those that represent neither.
+        int[] operatorNodes = new int[] {
+            annotationDeclarationCount, arrayAccessExprCount, arrayCreationExprCount,
+            arrayInitializerExprCount, assertStmtCount, assignExprCount,
+            binaryExprCount, breakStmtCount, castExprCount, catchClauseCount,
+            classExprCount, classOrInterfaceDeclarationCount, conditionalExprCount,
+            constructorDeclarationCount, continueStmtCount, doStmtCount,
+            enumConstantDeclarationCount, explicitConstructorInvocationStmtCount, 
+            foreachStmtCount, forStmtCount, ifStmtCount, importDeclarationCount,
+            initializerDeclarationCount, instanceOfExprCount, labeledStmtCount,
+            markerAnnotationExprCount, memberValuePairCount, normalAnnotationExprCount,
+            packageDeclarationCount, primitiveTypeCount, returnStmtCount,
+            singleMemberAnnotationExprCount, superExprCount, switchStmtCount,
+            switchEntryStmtCount, synchronizedStmtCount, throwStmtCount, thisExprCount,
+            tryStmtCount, typeDeclarationStmtCount, typeParameterCount,
+            variableDeclarationExprCount, voidTypeCount, whileStmtCount, wildcardTypeCount
+        };
+        int[] operandNodes = new int[] {
+            booleanLiteralExprCount, charLiteralExprCount, classOrInterfaceTypeCount,
+            doubleLiteralExprCount, integerLiteralExprCount, integerLiteralMinValueExprCount,
+            longLiteralExprCount, longLiteralMinValueExprCount, methodCallExprCount, 
+            methodDeclarationCount, nameExprCount, nullLiteralExprCount, objectCreationExprCount,
+            parameterCount, qualifiedNameExprCount, referenceTypeCount, stringLiteralExprCount,
+            unaryExprCount, variableDeclaratorCount, variableDeclaratorIdCount, 
+        };
+        // go through the list of counts
+        // n1 = number of distinct operators
+        int n1 = countNonZero(operatorNodes);
+        // n2 = number of distinct operands
+        int n2 = countNonZero(operandNodes);
+        // N1 = number of operators
+        int N1 = sum(operatorNodes);
+        // N2 = number of operands
+        int N2 = sum(operandNodes);
+        // n = n1 + n2
+        int n = n1 + n2;
+        // N = N1 + N2
+        int N = N1 + N2;
+        return 1.0D - divide(n, N);
     }
 
 
 
     public Double visit(AnnotationDeclaration n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "AnnotationDeclaration");
-        annotationDeclarations.add(n);
+        annotationDeclarationCount++;
         if (n.getJavaDoc() != null) {
             n.getJavaDoc().accept(this, arg);
         }
@@ -427,7 +363,7 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(AnnotationMemberDeclaration n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "AnnotationMemberDeclaration");
-        annotationMemberDeclarations.add(n);
+        annotationMemberDeclarationCount++;
         if (n.getJavaDoc() != null) {
             n.getJavaDoc().accept(this, arg);
         }
@@ -446,7 +382,7 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(ArrayAccessExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ArrayAccessExpr");
-        arrayAccessExprs.add(n);
+        arrayAccessExprCount++;
         n.getName().accept(this, arg);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getIndex().accept(this, arg)));
         return n.getIndex().accept(this, arg);
@@ -454,7 +390,7 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(ArrayCreationExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ArrayCreationExpr");
-        arrayCreationExprs.add(n);
+        arrayCreationExprCount++;
         n.getType().accept(this, arg);
         if (n.getDimensions() != null) {
             for (Expression dim : n.getDimensions()) {
@@ -470,7 +406,7 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(ArrayInitializerExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ArrayInitializerExpr");
-        arrayInitializerExprs.add(n);
+        arrayInitializerExprCount++;
         Double dryValues = new Double(0);
         int i = 0;
         if (n.getValues() != null) {
@@ -485,7 +421,7 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(AssertStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "AssertStmt");
-        assertStmts.add(n);
+        assertStmtCount++;
         Double check, message = new Double(0);
         check = n.getCheck().accept(this, arg);
         if (n.getMessage() != null) {
@@ -497,7 +433,7 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(AssignExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "AssignExpr");
-        assignExprs.add(n);
+        assignExprCount++;
         n.getTarget().accept(this, arg);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getValue().accept(this, arg)));
         return n.getValue().accept(this, arg);
@@ -505,7 +441,7 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(BinaryExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "BinaryExpr");
-        binaryExprs.add(n);
+        binaryExprCount++;
         Double left = n.getLeft().accept(this, arg);
         Double right = n.getRight().accept(this, arg);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (average(new Double[] {left, right})));
@@ -514,7 +450,7 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(BlockStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "BlockStmt");
-        blockStmts.add(n);
+        blockStmtCount++;
         Double equalityCounter = new Double(0);
         int pairs = 0;
         Double dryValues = new Double(0);
@@ -539,21 +475,21 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(BooleanLiteralExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "BooleanLiteralExpr");
-        booleanLiteralExprs.add(n);
+        booleanLiteralExprCount++;
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(1)));
         return new Double(1); // stub
     }
 
     public Double visit(BreakStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "BreakStmt");
-        breakStmts.add(n);
+        breakStmtCount++;
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(0)));
         return new Double(0);
     }
 
     public Double visit(CastExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "CastExpr");
-        castExprs.add(n);
+        castExprCount++;
         n.getType().accept(this, arg);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getExpr().accept(this, arg)));
         return n.getExpr().accept(this, arg);
@@ -561,7 +497,7 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(CatchClause n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "CatchClause");
-        catchClauses.add(n);
+        catchClauseCount++;
         Double except = n.getExcept().accept(this, arg);
         Double catchBlock = n.getCatchBlock().accept(this, arg);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (average(new Double[] {except, catchBlock})));
@@ -571,21 +507,21 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(CharLiteralExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "CharLiteralExpr");
-        charLiteralExprs.add(n);
+        charLiteralExprCount++;
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(0)));
         return new Double(0);
     }
 
     public Double visit(ClassExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ClassExpr");
-        classExprs.add(n);
+        classExprCount++;
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getType().accept(this, arg)));
         return n.getType().accept(this, arg);
     }
 
     public Double visit(ClassOrInterfaceDeclaration n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ClassOrInterfaceDeclaration");
-        classOrInterfaceDeclarations.add(n);
+        classOrInterfaceDeclarationCount++;
         if (n.getJavaDoc() != null) {
             n.getJavaDoc().accept(this, arg);
         }
@@ -626,7 +562,7 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(ClassOrInterfaceType n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ClassOrInterfaceType");
-        classOrInterfaceTypes.add(n);
+        classOrInterfaceTypeCount++;
         if (n.getScope() != null) {
             n.getScope().accept(this, arg);
         }
@@ -641,7 +577,7 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(CompilationUnit n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "CompilationUnit");
-        compilationUnits.add(n);
+        compilationUnitCount++;
         Double packageValue = new Double(0), importsValue = new Double(0), typesValue = new Double(0);
         if (n.getPackage() != null) {
             packageValue = n.getPackage().accept(this, arg);
@@ -666,14 +602,14 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
         }
 
         // note that this is the first call to visit, so we will call the compute function from here.
-        Double dryValue = computePairwiseDrynessScore();
+        Double dryValue = computeBakerDrynessScore();
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (dryValue));
         return dryValue; // stub
     }
 
     public Double visit(ConditionalExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ConditionalExpr");
-        conditionalExprs.add(n);
+        conditionalExprCount++;
         Double condition = n.getCondition().accept(this, arg);
         Double thenExpr = n.getThenExpr().accept(this, arg);
         Double elseExpr = n.getElseExpr().accept(this, arg);
@@ -683,7 +619,7 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(ConstructorDeclaration n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ConstructorDeclaration");
-        constructorDeclarations.add(n);
+        constructorDeclarationCount++;
         if (n.getJavaDoc() != null) {
             n.getJavaDoc().accept(this, arg);
         }
@@ -713,14 +649,14 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(ContinueStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ContinueStmt");
-        continueStmts.add(n);
+        continueStmtCount++;
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(0)));
         return new Double(0); // stub
     }
 
     public Double visit(DoStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "DoStmt");
-        doStmts.add(n);
+        doStmtCount++;
         Double body = n.getBody().accept(this, arg);
         Double condition = n.getCondition().accept(this, arg);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (average(new Double[] {body, condition/2})));
@@ -729,14 +665,14 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(DoubleLiteralExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "DoubleLiteralExpr");
-        doubleLiteralExprs.add(n);
+        doubleLiteralExprCount++;
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(0)));
         return new Double(0); // stub
     }
 
     public Double visit(EmptyMemberDeclaration n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "EmptyMemberDeclaration");
-        emptyMemberDeclarations.add(n);
+        emptyMemberDeclarationCount++;
         if (n.getJavaDoc() != null) {
             n.getJavaDoc().accept(this, arg);
         }
@@ -746,14 +682,14 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(EmptyStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "EmptyStmt");
-        emptyStmts.add(n);
+        emptyStmtCount++;
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(0)));
         return new Double(0); // stub
     }
 
     public Double visit(EmptyTypeDeclaration n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "EmptyTypeDeclaration");
-        emptyTypeDeclarations.add(n);
+        emptyTypeDeclarationCount++;
         if (n.getJavaDoc() != null) {
             n.getJavaDoc().accept(this, arg);
         }
@@ -763,14 +699,14 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(EnclosedExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "EnclosedExpr");
-        enclosedExprs.add(n);
+        enclosedExprCount++;
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getInner().accept(this, arg)));
         return n.getInner().accept(this, arg);
     }
 
     public Double visit(EnumConstantDeclaration n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "EnumConstantDeclaration");
-        enumConstantDeclarations.add(n);
+        enumConstantDeclarationCount++;
         if (n.getJavaDoc() != null) {
             n.getJavaDoc().accept(this, arg);
         }
@@ -800,7 +736,7 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(EnumDeclaration n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "EnumDeclaration");
-        enumDeclarations.add(n);
+        enumDeclarationCount++;
         if (n.getJavaDoc() != null) {
             n.getJavaDoc().accept(this, arg);
         }
@@ -835,7 +771,7 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(ExplicitConstructorInvocationStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ExplicitConstructorInvocationStmt");
-        explicitConstructorInvocationStmts.add(n);
+        explicitConstructorInvocationStmtCount++;
         Double thisExpr = new Double(0);
         if (!n.isThis()) {
             if (n.getExpr() != null) {
@@ -863,21 +799,21 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(ExpressionStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ExpressionStmt");
-        expressionStmts.add(n);
+        expressionStmtCount++;
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getExpression().accept(this, arg)));
         return n.getExpression().accept(this, arg);
     }
 
     public Double visit(FieldAccessExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "FieldAccessExpr");
-        fieldAccessExprs.add(n);
+        fieldAccessExprCount++;
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getScope().accept(this, arg)));
         return n.getScope().accept(this, arg);
     }
 
     public Double visit(FieldDeclaration n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "FieldDeclaration");
-        fieldDeclarations.add(n);
+        fieldDeclarationCount++;
         if (n.getJavaDoc() != null) {
             n.getJavaDoc().accept(this, arg);
         }
@@ -899,7 +835,7 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(ForeachStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ForeachStmt");
-        foreachStmts.add(n);
+        foreachStmtCount++;
         Double var = n.getVariable().accept(this, arg);
         Double iter = n.getIterable().accept(this, arg);
         Double body = n.getBody().accept(this, arg);
@@ -909,7 +845,7 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(ForStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ForStmt");
-        forStmts.add(n);
+        forStmtCount++;
         Double init = new Double(0), comp = new Double(0), update = new Double(0), body = new Double(0);
         if (n.getInit() != null) {
             Double dryValues = new Double(0);
@@ -939,7 +875,7 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(IfStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "IfStmt");
-        ifStmts.add(n);
+        ifStmtCount++;
         Double cond = n.getCondition().accept(this, arg);
         Double thenStmt = n.getThenStmt().accept(this, arg);
         Double elseStmt = new Double(0);
@@ -952,14 +888,14 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(ImportDeclaration n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ImportDeclaration");
-        importDeclarations.add(n);
+        importDeclarationCount++;
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getName().accept(this, arg)));
         return n.getName().accept(this, arg);
     }
 
     public Double visit(InitializerDeclaration n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "InitializerDeclaration");
-        initializerDeclarations.add(n);
+        initializerDeclarationCount++;
         if (n.getJavaDoc() != null) {
             n.getJavaDoc().accept(this, arg);
         }
@@ -969,7 +905,7 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(InstanceOfExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "InstanceOfExpr");
-        instanceOfExprs.add(n);
+        instanceOfExprCount++;
         Double expr = n.getExpr().accept(this, arg);
         n.getType().accept(this, arg);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (expr));
@@ -978,63 +914,63 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(IntegerLiteralExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "IntegerLiteralExpr");
-        integerLiteralExprs.add(n);
+        integerLiteralExprCount++;
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(1)));
         return new Double(1);
     }
 
     public Double visit(IntegerLiteralMinValueExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "IntegerLiteralMinValueExpr");
-        integerLiteralMinValueExprs.add(n);
+        integerLiteralMinValueExprCount++;
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(1)));
         return new Double(1);
     }
 
     public Double visit(JavadocComment n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "JavadocComment");
-        javadocComments.add(n);
+        javadocCommentCount++;
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(0)));
         return new Double(0);
     }
 
     public Double visit(LabeledStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "LabeledStmt");
-        labeledStmts.add(n);
+        labeledStmtCount++;
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getStmt().accept(this, arg)));
         return n.getStmt().accept(this, arg);
     }
 
     public Double visit(LongLiteralExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "LongLiteralExpr");
-        longLiteralExprs.add(n);
+        longLiteralExprCount++;
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(1)));
         return new Double(1);
     }
 
     public Double visit(LongLiteralMinValueExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "LongLiteralMinValueExpr");
-        longLiteralMinValueExprs.add(n);
+        longLiteralMinValueExprCount++;
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(1)));
         return new Double(1);
     }
 
     public Double visit(MarkerAnnotationExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "MarkerAnnotationExpr");
-        markerAnnotationExprs.add(n);
+        markerAnnotationExprCount++;
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getName().accept(this, arg)));
         return n.getName().accept(this, arg);
     }
 
     public Double visit(MemberValuePair n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "MemberValuePair");
-        memberValuePairs.add(n);
+        memberValuePairCount++;
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getValue().accept(this, arg)));
         return n.getValue().accept(this, arg);
     }
 
     public Double visit(MethodCallExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "MethodCallExpr");
-        methodCallExprs.add(n);
+        methodCallExprCount++;
         Double scope = new Double(0), tArgs = new Double(0), args = new Double(0);
         if (n.getScope() != null) {
             scope = n.getScope().accept(this, arg);
@@ -1063,7 +999,7 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(MethodDeclaration n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "MethodDeclaration");
-        methodDeclarations.add(n);
+        methodDeclarationCount++;
         if (n.getJavaDoc() != null) {
             n.getJavaDoc().accept(this, arg);
         }
@@ -1098,14 +1034,14 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(NameExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "NameExpr");
-        nameExprs.add(n);
+        nameExprCount++;
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(0)));
         return new Double(0); // stub
     }
 
     public Double visit(NormalAnnotationExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "NormalAnnotationExpr");
-        normalAnnotationExprs.add(n);
+        normalAnnotationExprCount++;
         n.getName().accept(this, arg);
         if (n.getPairs() != null) {
             Double dryValues = new Double(0);
@@ -1122,14 +1058,14 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(NullLiteralExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "NullLiteralExpr");
-        nullLiteralExprs.add(n);
+        nullLiteralExprCount++;
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(0)));
         return new Double(0);
     }
 
     public Double visit(ObjectCreationExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ObjectCreationExpr");
-        objectCreationExprs.add(n);
+        objectCreationExprCount++;
         Double scope = new Double(0), tArgs = new Double(0), type = new Double(0), args = new Double(0), aClassBody = new Double(0);
         if (n.getScope() != null) {
             n.getScope().accept(this, arg);
@@ -1164,7 +1100,7 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(PackageDeclaration n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "PackageDeclaration");
-        packageDeclarations.add(n);
+        packageDeclarationCount++;
         if (n.getAnnotations() != null) {
             for (AnnotationExpr a : n.getAnnotations()) {
                 a.accept(this, arg);
@@ -1176,7 +1112,7 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(Parameter n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "Parameter");
-        parameters.add(n);
+        parameterCount++;
         if (n.getAnnotations() != null) {
             for (AnnotationExpr a : n.getAnnotations()) {
                 a.accept(this, arg);
@@ -1190,28 +1126,28 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(PrimitiveType n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "PrimitiveType");
-        primitiveTypes.add(n);
+        primitiveTypeCount++;
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(1)));
         return new Double(1);
     }
 
     public Double visit(QualifiedNameExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "QualifiedNameExpr");
-        qualifiedNameExprs.add(n);
+        qualifiedNameExprCount++;
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getQualifier().accept(this, arg)));
         return n.getQualifier().accept(this, arg);
     }
 
     public Double visit(ReferenceType n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ReferenceType");
-        referenceTypes.add(n);
+        referenceTypeCount++;
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getType().accept(this, arg)));
         return n.getType().accept(this, arg);
     }
 
     public Double visit(ReturnStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ReturnStmt");
-        returnStmts.add(n);
+        returnStmtCount++;
         if (n.getExpr() != null) {
             if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getExpr().accept(this, arg)));
             return n.getExpr().accept(this, arg);
@@ -1222,7 +1158,7 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(SingleMemberAnnotationExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "SingleMemberAnnotationExpr");
-        singleMemberAnnotationExprs.add(n);
+        singleMemberAnnotationExprCount++;
         n.getName().accept(this, arg);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getMemberValue().accept(this, arg)));
         return n.getMemberValue().accept(this, arg);
@@ -1230,14 +1166,14 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(StringLiteralExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "StringLiteralExpr");
-        stringLiteralExprs.add(n);
+        stringLiteralExprCount++;
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(1)));
         return new Double(1);
     }
 
     public Double visit(SuperExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "SuperExpr");
-        superExprs.add(n);
+        superExprCount++;
         if (n.getClassExpr() != null) {
             if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getClassExpr().accept(this, arg)));
             return n.getClassExpr().accept(this, arg);
@@ -1248,7 +1184,7 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(SwitchEntryStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "SwitchEntryStmt");
-        switchEntryStmts.add(n);
+        switchEntryStmtCount++;
         if (n.getLabel() != null) {
             n.getLabel().accept(this, arg);
         }
@@ -1268,7 +1204,7 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(SwitchStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "SwitchStmt");
-        switchStmts.add(n);
+        switchStmtCount++;
         n.getSelector().accept(this, arg);
         if (n.getEntries() != null) {
             Double dryValues = new Double(0);
@@ -1287,7 +1223,7 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(SynchronizedStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "SynchronizedStmt");
-        synchronizedStmts.add(n);
+        synchronizedStmtCount++;
         Double expr = n.getExpr().accept(this, arg);
         Double block = n.getBlock().accept(this, arg);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (average(new Double[] {expr, block})));
@@ -1296,7 +1232,7 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(ThisExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ThisExpr");
-        thisExprs.add(n);
+        thisExprCount++;
         if (n.getClassExpr() != null) {
             if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getClassExpr().accept(this, arg)));
             return n.getClassExpr().accept(this, arg);
@@ -1307,14 +1243,14 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(ThrowStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "ThrowStmt");
-        throwStmts.add(n);
+        throwStmtCount++;
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getExpr().accept(this, arg)));
         return n.getExpr().accept(this, arg);
     }
 
     public Double visit(TryStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "TryStmt");
-        tryStmts.add(n);
+        tryStmtCount++;
         Double tBlock = new Double(0), cBlock = new Double(0), fBlock = new Double(0);
         tBlock = n.getTryBlock().accept(this, arg);
         if (n.getCatchs() != null) {
@@ -1335,14 +1271,14 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(TypeDeclarationStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "TypeDeclarationStmt");
-        typeDeclarationStmts.add(n);
+        typeDeclarationStmtCount++;
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getTypeDeclaration().accept(this, arg)));
         return n.getTypeDeclaration().accept(this, arg);
     }
 
     public Double visit(TypeParameter n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "TypeParameter");
-        typeParameters.add(n);
+        typeParameterCount++;
         if (n.getTypeBound() != null) {
             Double dryValues = new Double(0);
             int i = 0;
@@ -1359,14 +1295,14 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(UnaryExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "UnaryExpr");
-        unaryExprs.add(n);
+        unaryExprCount++;
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getExpr().accept(this, arg)));
         return n.getExpr().accept(this, arg);
     }
 
     public Double visit(VariableDeclarationExpr n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "VariableDeclarationExpr");
-        variableDeclarationExprs.add(n);
+        variableDeclarationExprCount++;
         if (n.getAnnotations() != null) {
             for (AnnotationExpr a : n.getAnnotations()) {
                 a.accept(this, arg);
@@ -1385,7 +1321,7 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(VariableDeclarator n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "VariableDeclarator");
-        variableDeclarators.add(n);
+        variableDeclaratorCount++;
         n.getId().accept(this, arg);
         if (n.getInit() != null) {
             if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (n.getInit().accept(this, arg)));
@@ -1397,21 +1333,21 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(VariableDeclaratorId n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "VariableDeclaratorId");
-        variableDeclaratorIds.add(n);
+        variableDeclaratorIdCount++;
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(0)));
         return new Double(0);
     }
 
     public Double visit(VoidType n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "VoidType");
-        voidTypes.add(n);
+        voidTypeCount++;
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(0)));
         return new Double(0);
     }
 
     public Double visit(WhileStmt n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "WhileStmt");
-        whileStmts.add(n);
+        whileStmtCount++;
         Double cond = n.getCondition().accept(this, arg);
         Double body = n.getBody().accept(this, arg);
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (average(new Double[] {cond/2, body})));
@@ -1420,7 +1356,7 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(WildcardType n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "WildcardType");
-        wildcardTypes.add(n);
+        wildcardTypeCount++;
         if (n.getExtends() != null) {
             n.getExtends().accept(this, arg);
         }
@@ -1433,14 +1369,14 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
 
     public Double visit(BlockComment n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "BlockComment");
-        blockComments.add(n);
+        blockCommentCount++;
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(0)));
         return new Double(0);
     }
 
     public Double visit(LineComment n, A arg) {
         if(comments) System.out.println("Visiting node " + n + " of type " + "LineComment");
-        lineComments.add(n);
+        lineCommentCount++;
         if(comments) System.out.println("dryness score for node " + n + " of type " + n.getClass() + " is: " + (new Double(0)));
         return new Double(0);
     }
@@ -1455,12 +1391,44 @@ public class ModifiedBakerHeuristic<A> implements GenericVisitor<Double, A> {
         return divide(sum, list.length);
     }
 
+    // computes the division of two Doubles, but if the second Double is 0, we return 0
+    public Double divide(Double sum, Double i) {
+        // roundabout way to check whether i is 0
+        if (i < 0.0001 && i > -0.0001) {
+            return new Double(0);
+        }
+        return sum/i;
+    }
     // computes the division of two numbers, but if there are 0 numbers, we return 0
     public Double divide(Double sum, int i) {
         if (i == 0) {
             return new Double(0);
         }
         return sum/i;
+    }
+    // computes the division of two integers, but if the second int is 0, we return 0
+    public Double divide(int sum, int i) {
+        if (i == 0) {
+            return new Double(0);
+        }
+        return (Double) ((double) sum)/((double) i);
+    }
+
+    // computes the sum of an integer array
+    public int sum(int[] arr) {
+        int s = 0;
+        for (int i = 0; i < arr.length; i++) {
+            s += arr[i];
+        }
+        return s;
+    }
+    // computes the number of nonzero elements in an integer array
+    public int countNonZero(int[] arr) {
+        int c = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if(arr[i] != 0) c++;
+        }
+        return c;
     }
 
 }
