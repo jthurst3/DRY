@@ -40,14 +40,21 @@ bar(transpose(testData));
 title('Test Data Results');
 xlabel('Java files');
 ylabel('DRYness score');
+legend({'ZeroHeuristic', 'ModifiedBakerHeuristic', 'Iteration1Heuristic', 'AllPairsNaiveHeuristic', 'AllPairsWeightedHeuristic'});
+set(gca, 'fontsize', 6);
+set(gca, 'XTickLabel', {'DivideByZero', 'DoubleFor', 'Factorial', 'HelloWorld', 'DoubleForWet', 'FactorialWet', 'HelloWorldWet'});
 saveas(gcf, 'testPlot', 'pdf');
 
+set(gca, 'fontsize', 11);
 % make the dry bar plot
 bar(transpose(dryData));
 % set the title
 title('Results on Our Implementation');
 xlabel('Java files');
 ylabel('DRYness score');
+legend({'ZeroHeuristic', 'ModifiedBakerHeuristic', 'Iteration1Heuristic', 'AllPairsNaiveHeuristic', 'AllPairsWeightedHeuristic'});
+set(gca, 'fontsize', 6);
+set(gca, 'XTickLabel', {'DRY','AllPairsWeightedHeuristic', 'AllPairsNaiveHeuristic', 'Iteration1Heuristic', 'ModifiedBakerHeuristic', 'ZeroHeuristic'});
 saveas(gcf, 'dryPlot', 'pdf');
 
 exit
